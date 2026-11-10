@@ -173,10 +173,20 @@
       if (page in records) return records[page].map(id => videos.find(video => video.image === id));
       return homeFeed.filter(v=>(category==='推荐'||v.category===category)&&(!query||`${v.title} ${v.author} ${v.category}`.toLowerCase().includes(query)))}
     function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card"><button class="card-media" data-video="${v.image}" aria-label="查看${v.title}"><img src="Assets/cover-${String(v.image).padStart(2,'0')}.jpg" alt="${v.category}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${v.title}</h4><div class="card-meta"><span class="author-dot">${v.author[0]}</span><span>${v.author}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;document.querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>openVideo(videos.find(v=>v.image===Number(b.dataset.video))))}
+    function bannerDistance() {
+      return $('mastheadBanner').getBoundingClientRect().bottom - $('masthead').offsetHeight;
+    }
     function syncMasthead() {
-      const toolbar = $('masthead');
-      const bannerBottom = $('mastheadBanner').getBoundingClientRect().bottom;
-      toolbar.classList.toggle('is-scrolled', page === '首页' && bannerBottom <= toolbar.offsetHeight);
+      $('masthead').classList.toggle('is-scrolled', page === '首页' && bannerDistance() <= 0);
+    }
+    function snapPastBanner(event) {
+      if (page !== '首页' || event.deltaY <= 0 || event.ctrlKey || event.shiftKey || !event.cancelable) return;
+      if (!$('main').contains(event.target) || $('videoModal').classList.contains('open')) return;
+      const distance = bannerDistance();
+      if (distance <= 0) return;
+      event.preventDefault();
+      window.scrollTo(0, Math.ceil(window.scrollY + distance));
+      syncMasthead();
     }
     function updatePage() {
       const isHome = page === '首页';
@@ -222,6 +232,7 @@
     $('brandLink').onclick = event => { event.preventDefault(); navigate('首页'); };
     $('favoriteButton').onclick = () => toggleRecord('收藏夹');
     $('watchLaterButton').onclick = () => toggleRecord('稍后再看');
+    window.addEventListener('wheel', snapPastBanner, {passive:false});
     window.addEventListener('scroll', syncMasthead, {passive:true});
     window.addEventListener('resize', syncMasthead);
     $('collapseButton').onclick=()=>{const sidebar=$('sidebar');const mobile=window.matchMedia('(max-width:760px)').matches;const collapsed=mobile?sidebar.classList.toggle('expanded-mobile'):sidebar.classList.toggle('collapsed');if(!mobile)$('main').classList.toggle('sidebar-collapsed',collapsed);const isOpen=mobile?collapsed:!collapsed;$('collapseButton').setAttribute('aria-expanded',String(isOpen));$('collapseButton').setAttribute('aria-label',isOpen?'折叠一级导航':'展开一级导航');$('collapseButton').title=isOpen?'折叠一级导航':'展开一级导航'};
