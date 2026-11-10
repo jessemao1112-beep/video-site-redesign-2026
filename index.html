@@ -91,25 +91,10 @@
       .sidebar.expanded-mobile .record-nav{margin-inline:14px;padding-inline:0}
     }
     .masthead-inner{
-      grid-template-columns:minmax(320px,1fr) minmax(0,350px) minmax(320px,1fr);
+      grid-template-columns:minmax(204px,1fr) minmax(0,350px) minmax(204px,1fr);
     }
     .masthead-inner .top-actions{gap:6px}
-    .header-action{
-      display:inline-flex;align-items:center;justify-content:center;gap:5px;
-      min-width:34px;height:36px;padding:0 8px;border-radius:9px;
-      color:#fff;background:#ffffff22;text-decoration:none;white-space:nowrap;font-size:13px;
-    }
-    .header-action svg{width:17px;height:17px;flex:none}
-    .header-action:hover{background:#ffffff50}
-    .masthead.is-scrolled .header-action,.secondary-page .header-action{color:#596771;background:#f4f6f7}
-    .masthead.is-scrolled .header-action:hover,.secondary-page .header-action:hover{background:var(--pink-soft)}
-    .masthead .top-actions .header-upload{color:#451929;background:var(--pink);font-weight:650}
-    .masthead .top-actions .header-upload:hover{background:#ff90b0}
-    @media(max-width:1200px){
-      .masthead-inner{grid-template-columns:minmax(198px,1fr) minmax(0,350px) minmax(198px,1fr)}
-      .header-action{padding:0 7px}
-      .header-action span{display:none}
-    }
+    .top-actions .icon-button{display:grid;place-items:center}
     @media(max-width:760px){
       .main{--toolbar-height:112px}
       .masthead-inner{grid-template:36px 36px / minmax(0,1fr);row-gap:8px}
@@ -136,16 +121,17 @@
       <div class="masthead-inner">
         <label class="search"><svg aria-hidden="true"><use href="#i-search"/></svg><input id="searchInput" type="search" placeholder="搜索你感兴趣的视频" aria-label="搜索视频" /></label>
         <div class="top-actions">
-          <a class="header-action" href="https://account.bilibili.com/account/big" target="_blank" rel="noopener" aria-label="会员（在新标签页打开）" title="会员">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 5 4 4-7 4 7 5-4-2 12H5z"/></svg><span>会员</span>
+          <a class="icon-button" href="https://member.bilibili.com/platform/upload/video/frame" target="_blank" rel="noopener" aria-label="投稿（在新标签页打开）" title="投稿">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
           </a>
-          <a class="header-action" href="https://member.bilibili.com/platform/home" target="_blank" rel="noopener" aria-label="创作中心（在新标签页打开）" title="创作中心">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 15v2m4-6v6m4-9v9"/></svg><span>创作中心</span>
+          <a class="icon-button" href="https://account.bilibili.com/account/big" target="_blank" rel="noopener" aria-label="会员（在新标签页打开）" title="会员">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 5 4 4-7 4 7 5-4-2 12H5z"/></svg>
           </a>
-          <button class="icon-button" id="notifyButton" aria-label="消息" title="消息"><svg><use href="#i-bell"/></svg></button><button class="avatar" id="profileButton" aria-label="个人中心" title="个人中心">M</button>
-          <a class="header-action header-upload" href="https://member.bilibili.com/platform/upload/video/frame" target="_blank" rel="noopener" aria-label="投稿（在新标签页打开）" title="投稿">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg><span>投稿</span>
+          <a class="icon-button" href="https://member.bilibili.com/platform/home" target="_blank" rel="noopener" aria-label="创作中心（在新标签页打开）" title="创作中心">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 15v2m4-6v6m4-9v9"/></svg>
           </a>
+          <button class="icon-button" id="notifyButton" aria-label="通知" title="通知"><svg><use href="#i-bell"/></svg></button>
+          <button class="avatar" id="profileButton" aria-label="个人中心" title="个人中心">M</button>
         </div>
       </div>
     </header>
