@@ -31,15 +31,40 @@
     .main{min-height:100vh;margin-left:var(--sidebar);transition:margin-left .24s ease}
     .main.sidebar-collapsed{margin-left:74px}
     .sidebar.collapsed{width:74px}.sidebar.collapsed .brand{padding:0 18px}.sidebar.collapsed .primary-nav,.sidebar.collapsed .sidebar-bottom{padding-left:9px;padding-right:9px}.sidebar.collapsed .nav-item,.sidebar.collapsed .collapse-button{justify-content:center;padding-left:0;padding-right:0}.sidebar.collapsed .nav-item span,.sidebar.collapsed .collapse-button span{display:none}.sidebar.collapsed .collapse-button svg{transform:rotate(180deg)}
-    .masthead-inner{display:flex;align-items:center;justify-content:flex-end;height:100%;padding:0 clamp(20px,3vw,52px)}
-    .masthead-inner .search{margin-left:0}
-    @media(max-width:760px){.sidebar{width:62px}.sidebar .brand{height:82px;padding:0 13px}.sidebar .primary-nav,.sidebar .sidebar-bottom{padding-left:5px;padding-right:5px}.sidebar .nav-item,.sidebar .collapse-button{justify-content:center;padding-left:0;padding-right:0}.sidebar .nav-item span,.sidebar .collapse-button span{display:none}.sidebar.collapsed{width:62px}.main,.main.sidebar-collapsed{margin-left:62px}.masthead-inner{display:flex;justify-content:flex-end;gap:8px;height:100%;padding:0 12px}.masthead-inner .search{width:min(100%,280px);flex:1;height:36px}.masthead-inner .top-actions{flex:none}.sidebar.expanded-mobile{width:218px;box-shadow:12px 0 30px #1c273b22}.sidebar.expanded-mobile .brand{padding:0 27px}.sidebar.expanded-mobile .primary-nav,.sidebar.expanded-mobile .sidebar-bottom{padding-left:14px;padding-right:14px}.sidebar.expanded-mobile .nav-item,.sidebar.expanded-mobile .collapse-button{justify-content:flex-start;padding-left:16px;padding-right:16px}.sidebar.expanded-mobile .nav-item span,.sidebar.expanded-mobile .collapse-button span{display:inline}}
+    .sidebar.collapsed .brand{visibility:hidden}
+    .masthead-inner{
+      display:grid;
+      grid-template: auto / minmax(86px,1fr) minmax(0,350px) minmax(86px,1fr);
+      align-items:start;
+      column-gap:0;
+      height:100%;
+      padding:20px clamp(20px,3vw,52px) 0;
+    }
+    .masthead-inner .search{grid-area:1/2;width:100%;margin:0}
+    .masthead-inner .top-actions{grid-area:1/3;justify-self:end;align-items:start}
+    @media(max-width:760px){
+      .sidebar{width:62px}
+      .sidebar .brand{height:82px;padding:0 13px;visibility:hidden}
+      .sidebar .primary-nav,.sidebar .sidebar-bottom{padding-left:5px;padding-right:5px}
+      .sidebar .nav-item,.sidebar .collapse-button{justify-content:center;padding-left:0;padding-right:0}
+      .sidebar .nav-item span,.sidebar .collapse-button span{display:none}
+      .sidebar.collapsed{width:62px}
+      .main,.main.sidebar-collapsed{margin-left:62px}
+      .masthead-inner{grid-template-columns:minmax(72px,1fr) minmax(0,280px) minmax(72px,1fr);padding-inline:12px}
+      .masthead-inner .search{height:36px}
+      .masthead-inner .icon-button{display:grid;place-items:center;width:32px;height:34px;padding:0}
+      .sidebar.expanded-mobile{width:218px;box-shadow:12px 0 30px #1c273b22}
+      .sidebar.expanded-mobile .brand{padding:0 27px;visibility:visible}
+      .sidebar.expanded-mobile .primary-nav,.sidebar.expanded-mobile .sidebar-bottom{padding-left:14px;padding-right:14px}
+      .sidebar.expanded-mobile .nav-item,.sidebar.expanded-mobile .collapse-button{justify-content:flex-start;padding-left:16px;padding-right:16px}
+      .sidebar.expanded-mobile .nav-item span,.sidebar.expanded-mobile .collapse-button span{display:inline}
+    }
   </style>
 </head>
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></symbol><symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol><symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m9 9 6 3-6 3z"/></symbol><symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4m-4 8h4m10-8h4m-4 8h4"/></symbol><symbol id="i-live" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="m10 9 5 3-5 3zM2 9v6m20-6v6"/></symbol><symbol id="i-chevrons" viewBox="0 0 24 24"><path d="m14 6-6 6 6 6M20 6l-6 6 6 6"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5 9a8 8 0 0 1 14-2l1 5M4 12l1 5a8 8 0 0 0 14-2"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 14 8-14 8z"/></symbol></svg>
   <aside class="sidebar" id="sidebar" aria-label="一级导航">
-    <a class="brand" href="#home" id="brandLink" aria-label="返回首页"><img class="brand-logo" src="Assets/logo.png" alt="bilibili" /></a>
+    <a class="brand" href="#home" id="brandLink" aria-label="返回首页"><img class="brand-logo" src="Assets/logo2.png" alt="bilibili" /></a>
     <nav class="primary-nav" id="primaryNav" aria-label="一级导航"></nav>
     <div class="sidebar-bottom"><button class="collapse-button" id="collapseButton" aria-label="折叠一级导航" aria-expanded="true" title="折叠一级导航"><svg><use href="#i-chevrons"/></svg><span>收起侧边栏</span></button></div>
   </aside>
