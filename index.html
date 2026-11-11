@@ -38,7 +38,7 @@
     .collapse-button:hover{background:#fff5f8;color:var(--pink)}
     .main{min-height:100vh;margin-left:var(--sidebar);transition:margin-left .24s ease}
     .main.sidebar-collapsed{margin-left:74px}
-    .sidebar.collapsed{width:74px}.sidebar.collapsed .brand{padding:0 18px}.sidebar.collapsed .primary-nav,.sidebar.collapsed .sidebar-bottom{padding-left:9px;padding-right:9px}.sidebar.collapsed .nav-item,.sidebar.collapsed .collapse-button{justify-content:center;padding-left:0;padding-right:0}.sidebar.collapsed .nav-item span,.sidebar.collapsed .collapse-button span{display:none}.sidebar.collapsed .collapse-button svg{transform:rotate(180deg)}
+    .sidebar.collapsed{width:74px}.sidebar.collapsed .brand{padding:0 18px}.sidebar.collapsed .primary-nav,.sidebar.collapsed .sidebar-bottom{padding-left:9px;padding-right:9px}.sidebar.collapsed .nav-item,.sidebar.collapsed .collapse-button{justify-content:center;padding-left:0;padding-right:0}.sidebar.collapsed .collapse-button span{display:none}.sidebar.collapsed .collapse-button svg{transform:rotate(180deg)}
     .sidebar.collapsed .brand{visibility:hidden}
     .masthead-inner{
       display:grid;
@@ -55,7 +55,7 @@
       .sidebar .brand{height:82px;padding:0 13px;visibility:hidden}
       .sidebar .primary-nav,.sidebar .sidebar-bottom{padding-left:5px;padding-right:5px}
       .sidebar .nav-item,.sidebar .collapse-button{justify-content:center;padding-left:0;padding-right:0}
-      .sidebar .nav-item span,.sidebar .collapse-button span{display:none}
+      .sidebar .collapse-button span{display:none}
       .sidebar.collapsed{width:62px}
       .main,.main.sidebar-collapsed{margin-left:62px}
       .masthead-inner{grid-template-columns:minmax(72px,1fr) minmax(0,280px) minmax(72px,1fr);padding-inline:12px}
@@ -69,7 +69,7 @@
     }
     .sidebar-links{flex:1 1 auto;min-height:0;overflow:auto}
     .sidebar .record-nav{border-top:1px solid var(--line);margin:4px 14px 0;padding:10px 0}
-    .sidebar.collapsed .record-nav{margin-inline:9px}
+    .sidebar.collapsed .record-nav{margin-inline:9px;padding-inline:0}
     .main{position:relative;--banner-height:clamp(112px,9.4vw,220px);--toolbar-height:80px}
     .masthead-banner{
       position:absolute;inset:0 0 auto;height:var(--banner-height);
@@ -95,7 +95,7 @@
     .record-action[aria-pressed="true"]{background:var(--pink-soft);color:#b73e65}
     @media(max-width:760px){
       .main{--banner-height:138px}
-      .sidebar .record-nav{margin-inline:5px;padding-inline:0}
+      .sidebar .record-nav,.sidebar.collapsed .record-nav{margin-inline:5px;padding-inline:0}
       .sidebar.expanded-mobile .record-nav{margin-inline:14px;padding-inline:0}
     }
     .masthead-inner{
@@ -115,6 +115,16 @@
     @media(max-width:760px){
       .sidebar:not(.expanded-mobile) .more-nav{display:none}
       .sidebar.expanded-mobile .more-nav{display:grid}
+    }
+    @media (width > 760px){
+      .sidebar.collapsed .nav-item{
+        flex-direction:column;gap:4px;padding:8px 0;text-align:center;font-size:11px;line-height:1.2;
+      }
+    }
+    @media (max-width:760px){
+      .sidebar:not(.expanded-mobile) .nav-item{
+        flex-direction:column;gap:4px;padding:8px 0;text-align:center;font-size:11px;line-height:1.2;
+      }
     }
   </style>
 </head>
