@@ -101,6 +101,16 @@
       .masthead-inner .search{grid-area:1/1;justify-self:center;max-width:280px}
       .masthead-inner .top-actions{grid-area:2/1}
     }
+    .sidebar .more-nav{display:block}
+    .more-nav summary{list-style:none;cursor:pointer}
+    .more-nav summary::-webkit-details-marker{display:none}
+    .more-nav[open] summary svg{transform:rotate(180deg)}
+    .more-nav-links{display:grid;gap:4px;margin-top:6px}
+    .sidebar .more-nav-links a{padding-block:9px;text-decoration:none}
+    .sidebar.collapsed .more-nav-links a{font-size:11px;white-space:normal}
+    @media(max-width:760px){
+      .sidebar:not(.expanded-mobile) .more-nav-links a{font-size:11px;white-space:normal}
+    }
   </style>
 </head>
 <body>
@@ -110,6 +120,23 @@
     <div class="sidebar-links">
       <nav class="primary-nav" id="primaryNav" aria-label="一级导航"></nav>
       <nav class="primary-nav record-nav" id="recordNav" aria-label="个人记录"></nav>
+      <details class="primary-nav record-nav more-nav">
+        <summary class="nav-item" aria-label="更多入口" title="更多入口">
+          <svg aria-hidden="true"><use href="#i-down"/></svg><span>更多入口</span>
+        </summary>
+        <nav class="more-nav-links" aria-label="更多入口">
+          <a class="nav-item" href="https://game.bilibili.com/platform" target="_blank" rel="noopener" title="游戏中心（在新标签页打开）">游戏中心</a>
+          <a class="nav-item" href="https://show.bilibili.com/platform/home.html" target="_blank" rel="noopener" title="会员购（在新标签页打开）">会员购</a>
+          <a class="nav-item" href="https://manga.bilibili.com/" target="_blank" rel="noopener" title="漫画（在新标签页打开）">漫画</a>
+          <a class="nav-item" href="https://www.bilibili.com/match/home/" target="_blank" rel="noopener" title="赛事（在新标签页打开）">赛事</a>
+          <a class="nav-item" href="https://www.bilibili.com/blackboard/era/reward-activity-list-page.html" target="_blank" rel="noopener" title="活动（在新标签页打开）">活动</a>
+          <a class="nav-item" href="https://www.bilibili.com/blackboard/activity-5zJxM3spoS.html" target="_blank" rel="noopener" title="社区中心（在新标签页打开）">社区中心</a>
+          <a class="nav-item" href="https://www.bilibili.com/cheese/" target="_blank" rel="noopener" title="课堂（在新标签页打开）">课堂</a>
+          <a class="nav-item" href="https://music.bilibili.com/pc/music-center/" target="_blank" rel="noopener" title="新歌热榜（在新标签页打开）">新歌热榜</a>
+          <a class="nav-item" href="https://www.bilibili.com/read/home/" target="_blank" rel="noopener" title="专栏（在新标签页打开）">专栏</a>
+          <a class="nav-item" href="https://love.bilibili.com/list?project_type=1" target="_blank" rel="noopener" title="公益（在新标签页打开）">公益</a>
+        </nav>
+      </details>
     </div>
     <div class="sidebar-bottom"><button class="collapse-button" id="collapseButton" aria-label="折叠一级导航" aria-expanded="true" title="折叠一级导航"><svg><use href="#i-chevrons"/></svg><span>收起侧边栏</span></button></div>
   </aside>
