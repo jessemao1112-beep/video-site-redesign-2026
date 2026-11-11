@@ -145,6 +145,31 @@
         flex-direction:column;gap:4px;padding:8px 0;text-align:center;font-size:11px;line-height:1.2;
       }
     }
+    .sidebar .display-settings{padding:10px 0}
+    .sidebar .display-settings label{
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      padding:9px 16px;color:#64727b;font-size:13px;cursor:pointer;
+    }
+    .display-settings input{
+      appearance:none;flex:none;margin:0;width:32px;height:18px;padding:2px;
+      border:0;border-radius:999px;background:#a9b4bc;cursor:pointer;
+    }
+    .display-settings input::before{
+      content:"";display:block;width:14px;height:14px;border-radius:50%;background:#fff;
+    }
+    .display-settings input:checked{background:var(--pink)}
+    .display-settings input:checked::before{transform:translateX(14px)}
+    .sidebar.collapsed .display-settings{display:none}
+    @media(max-width:760px){
+      .sidebar:not(.expanded-mobile) .display-settings{display:none}
+      .sidebar.expanded-mobile .display-settings{display:block}
+    }
+    .main.banner-hidden .masthead-banner{display:none}
+    .main.banner-hidden:not(.secondary-page) #homeContent{margin-top:0}
+    .banner-hidden .masthead{background:#fff}
+    .banner-hidden .masthead .search{border-color:#e2e6eb;box-shadow:none}
+    .banner-hidden .masthead .icon-button{color:#64727b;background:transparent}
+    .banner-hidden .masthead .icon-button:hover{background:#f4f6f8}
   </style>
 </head>
 <body>
@@ -166,6 +191,9 @@
         <a class="nav-item" href="https://www.bilibili.com/read/home/" target="_blank" rel="noopener" title="专栏（在新标签页打开）">专栏</a>
         <a class="nav-item" href="https://love.bilibili.com/list?project_type=1" target="_blank" rel="noopener" title="公益（在新标签页打开）">公益</a>
       </nav>
+      <section class="record-nav display-settings" aria-label="显示设置">
+        <label><span>隐藏首页氛围图</span><input id="hideHomeBanner" type="checkbox" role="switch"></label>
+      </section>
     </div>
     <div class="sidebar-bottom"><button class="collapse-button" id="collapseButton" aria-label="折叠一级导航" aria-expanded="true" title="折叠一级导航"><svg><use href="#i-chevrons"/></svg><span>收起侧边栏</span></button></div>
   </aside>
@@ -329,6 +357,17 @@
       if (page in records) return records[page].map(id => videos.find(video => video.image === id));
       return homeFeed.filter(v=>(category==='推荐'||v.category===category)&&(!query||`${v.title} ${v.author} ${v.category}`.toLowerCase().includes(query)))}
     function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card" style="--card-tint:hsl(${Math.round((v.image*137.508+18)%360)} 24% 92%)"><button class="card-media" data-video="${v.image}" aria-label="查看${escapeHTML(v.title)}"><img src="${coverFor(v)}" alt="${escapeHTML(v.category)}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${escapeHTML(v.title)}</h4><div class="card-meta"><span>${escapeHTML(v.author)}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;document.querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>openVideo(videos.find(v=>v.image===Number(b.dataset.video))))}
+    const hideHomeBanner = $('hideHomeBanner');
+    const bannerPreferenceKey = 'video-redesign-hide-home-banner';
+    try { hideHomeBanner.checked = localStorage.getItem(bannerPreferenceKey) === 'true'; } catch {}
+    function applyBannerPreference() {
+      $('main').classList.toggle('banner-hidden', hideHomeBanner.checked);
+    }
+    hideHomeBanner.addEventListener('change', () => {
+      applyBannerPreference();
+      try { localStorage.setItem(bannerPreferenceKey, String(hideHomeBanner.checked)); } catch {}
+    });
+    applyBannerPreference();
     const masthead = $('masthead');
     const mastheadBanner = $('mastheadBanner');
     let bannerObserver;
