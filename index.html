@@ -191,7 +191,7 @@
   <script>
     const pages=[['首页','i-home'],['动态','i-activity'],['追番','i-tv'],['影视','i-film'],['直播','i-live']];
     const categories=['推荐','生活','美食','游戏','音乐','知识','娱乐','鬼畜','旅行','科技','运动','时尚','萌宠','纪录片'];
-    const videos=[
+    const sampleVideos=[
       {title:'下班后，给自己做一顿认真又简单的晚餐',author:'小林的日常',category:'美食',views:'24.8万',duration:'08:42',date:'2小时前',image:1},
       {title:'在游戏里建一座会发光的海边小镇',author:'像素研究所',category:'游戏',views:'18.6万',duration:'14:26',date:'5小时前',image:2},
       {title:'那些让人想把耳机音量调大的现场瞬间',author:'耳朵收藏家',category:'音乐',views:'36.2万',duration:'11:03',date:'昨天',image:3},
@@ -206,7 +206,61 @@
       {title:'想念海的时候，就来看一会儿浪',author:'浪花放送',category:'纪录片',views:'15.1万',duration:'18:08',date:'6天前',image:12}
     ];
     const personalPages = [['历史记录','i-history'],['收藏夹','i-bookmark'],['稍后再看','i-clock']];
-    const homeFeed = Array.from({length:50}, (_, index) => videos[index % videos.length]);
+    const homeFeed = [
+      {"title": "《崩坏：星穹铁道》动画短片：「月下的欢快葬礼」", "author": "崩坏星穹铁道", "category": "游戏", "views": "106.8万", "duration": "25:00", "date": "2026-11-11", "image": 117590970140555, "cover": "Assets/popular/BV1gHWg6GEqj.jpg"},
+      {"title": "黄仁勋：我想挑战一下我的软肋", "author": "浅澄月", "category": "鬼畜", "views": "121.3万", "duration": "02:06", "date": "2026-11-10", "image": 117591792161198, "cover": "Assets/popular/BV1tKWu6YEka.jpg"},
+      {"title": "【BilibiliToy】这个是一个普普通通的人机验证，真的", "author": "魔魔园", "category": "娱乐", "views": "24.1万", "duration": "02:03", "date": "2026-11-10", "image": 117592211659465, "cover": "Assets/popular/BV16xW36tEj5.jpg"},
+      {"title": "财神窦占龙 第15集 寻参【8月国创】", "author": "哔哩哔哩国创", "category": "娱乐", "views": "22.3万", "duration": "23:21", "date": "2026-11-08", "image": 117568488672719, "cover": "Assets/popular/BV1yt4B6QEKG.jpg"},
+      {"title": "坟围感十足的八种植物，总有一款适合你！", "author": "-阿申呀", "category": "娱乐", "views": "234.3万", "duration": "02:03", "date": "2026-11-05", "image": 117563036144994, "cover": "Assets/popular/BV1uT486NEEu.jpg"},
+      {"title": "BLG 赛事语音 | 击败心魔，我们去决赛吧！", "author": "BLG电子竞技俱乐部", "category": "游戏", "views": "14.1万", "duration": "10:55", "date": "2026-11-11", "image": 117596288453018, "cover": "Assets/popular/BV1npW16tE1e.jpg"},
+      {"title": "寰宇频道特别栏目 | 远行", "author": "鸣潮先行公约", "category": "游戏", "views": "23.2万", "duration": "02:52", "date": "2026-11-11", "image": 117591808936602, "cover": "Assets/popular/BV1W3Wu6FEmu.jpg"},
+      {"title": "传奇历史人物志——麦克斯韦", "author": "抽象历史人物志", "category": "知识", "views": "72.5万", "duration": "02:57", "date": "2026-11-10", "image": 117591959931159, "cover": "Assets/popular/BV1TUW36kE2z.jpg"},
+      {"title": "辽阔的土地生不出狭隘的爱", "author": "小王不爱干正事", "category": "娱乐", "views": "68.3万", "duration": "00:42", "date": "2026-11-10", "image": 117591976774105, "cover": "Assets/popular/BV1hrW367Emp.jpg"},
+      {"title": "【剧情】黑白清道夫（2026）01【李铭顺 / 娄峻硕】", "author": "迷影社", "category": "娱乐", "views": "26.0万", "duration": "44:10", "date": "2026-11-06", "image": 117516261132984, "cover": "Assets/popular/BV16sx56kEsL.jpg"},
+      {"title": "旧衣服改造波士顿包", "author": "水木针线姐", "category": "生活", "views": "32.9万", "duration": "03:10", "date": "2026-11-09", "image": 117585920133070, "cover": "Assets/popular/BV1EZWt66EjR.jpg"},
+      {"title": "这是我等待了一生的巨浪", "author": "无蓝矢", "category": "游戏", "views": "102.9万", "duration": "01:54", "date": "2026-11-10", "image": 117588302500334, "cover": "Assets/popular/BV1ziWP6qENy.jpg"},
+      {"title": "【民科史】可口可乐为什么要退出\"避孕\"市场？", "author": "BoyJump老登", "category": "知识", "views": "18.7万", "duration": "14:12", "date": "2026-11-10", "image": 117591439840726, "cover": "Assets/popular/BV1WVWu6ZE2U.jpg"},
+      {"title": "地牢酒馆-33《日常招待与地下湖》", "author": "粘土工厂", "category": "游戏", "views": "147.7万", "duration": "03:01", "date": "2026-11-10", "image": 117591842488525, "cover": "Assets/popular/BV1bwWu6KEaS.jpg"},
+      {"title": "灭霸宿舍卫生不合格，被叫回去重新值日", "author": "只因寄太美哦", "category": "娱乐", "views": "106.3万", "duration": "02:25", "date": "2026-11-10", "image": 117587379755645, "cover": "Assets/popular/BV1ciWb6yEGv.jpg"},
+      {"title": "顺直大改造S2EP1—长发男与短发女的恨海情天", "author": "antoxic", "category": "生活", "views": "66.9万", "duration": "15:15", "date": "2026-11-09", "image": 117585718811341, "cover": "Assets/popular/BV1gjWb6tE8q.jpg"},
+      {"title": "养了大肥鱼以后，家里的米就没够吃过", "author": "东洋雪莲", "category": "音乐", "views": "110.4万", "duration": "02:07", "date": "2026-11-10", "image": 117590869415559, "cover": "Assets/popular/BV1dGWg67Evr.jpg"},
+      {"title": "《人皇步》", "author": "伤心欲茄222", "category": "生活", "views": "254.0万", "duration": "01:37", "date": "2026-11-10", "image": 117586104683131, "cover": "Assets/popular/BV1BjWt6BEJd.jpg"},
+      {"title": "这都能还原！！？【MC阿哈篇】", "author": "FoFTG", "category": "游戏", "views": "22.4万", "duration": "03:20", "date": "2026-11-11", "image": 117595701249808, "cover": "Assets/popular/BV1MdWL6WEiB.jpg"},
+      {"title": "12岁虚报17岁当红军，91年后他是最后一位开国将军｜王扶之（1923—2026）", "author": "衔星渡鸦", "category": "游戏", "views": "37.5万", "duration": "01:58", "date": "2026-11-10", "image": 117586876435463, "cover": "Assets/popular/BV1zjW86jEXp.jpg"},
+      {"title": "⚡️黄仁勋 | Trouble Maker × 回家的诱惑⚡️英伟达年会现场双黄演绎崩老头【AI MV大赛】", "author": "抽乐个大象", "category": "音乐", "views": "118.3万", "duration": "03:55", "date": "2026-11-10", "image": 117590533871837, "cover": "Assets/popular/BV1PDWT6RE3F.jpg"},
+      {"title": "背着180斤现金攀爬，爬上来就带走384000美金！💰", "author": "野兽先生MrBeast", "category": "生活", "views": "86.8万", "duration": "01:35", "date": "2026-11-10", "image": 117591490301274, "cover": "Assets/popular/BV1wLWu6tE5N.jpg"},
+      {"title": "今天画画，差点没走出来！", "author": "爱画画的子衿", "category": "生活", "views": "29.0万", "duration": "03:57", "date": "2026-11-10", "image": 117590248655441, "cover": "Assets/popular/BV1X3WM6gEUZ.jpg"},
+      {"title": "中国居然有原生食虫植物？", "author": "龙女之声", "category": "知识", "views": "42.3万", "duration": "12:33", "date": "2026-11-10", "image": 117591355951816, "cover": "Assets/popular/BV1PXWu6wEp6.jpg"},
+      {"title": "热烈欢迎谢苗！听听新一代“功夫巨星”对自己的生活和工作什么评价？（有一说一，苗哥的夫人何彦霓女士做面包真的太好吃了！太好吃啦！！！", "author": "papi酱", "category": "娱乐", "views": "19.1万", "duration": "37:39", "date": "2026-11-11", "image": 117591355954491, "cover": "Assets/popular/BV1NXWu6wE9P.jpg"},
+      {"title": "【1酱赛评四强篇·上】BLG突破LPL对S赛T1不胜历史！几代人的夙愿！14年的等待！终于在S赛战胜T1！爽爽爽爽爽！！！！", "author": "你是想气死1酱么", "category": "游戏", "views": "90.4万", "duration": "14:27", "date": "2026-11-10", "image": 117592664643195, "cover": "Assets/popular/BV1QAW36VEWg.jpg"},
+      {"title": "动态视频｜打败许昕，获得iPhone Duo！", "author": "飓多多StormCrew", "category": "生活", "views": "100.8万", "duration": "03:02", "date": "2026-11-10", "image": 117590600978432, "cover": "Assets/popular/BV1JnWT6LEVN.jpg"},
+      {"title": "黑客勒索，政企全沦陷，软盘仙人“日本”正在被黑客集中爆破？", "author": "星辰趣味屋", "category": "知识", "views": "52.4万", "duration": "17:22", "date": "2026-11-10", "image": 117589846006285, "cover": "Assets/popular/BV1UWWM6wEEz.jpg"},
+      {"title": "千 万 别 开 911 去 川 西 ！", "author": "极速拍档", "category": "生活", "views": "15.5万", "duration": "25:43", "date": "2026-11-11", "image": 117592933009198, "cover": "Assets/popular/BV1kBWg68Ejf.jpg"},
+      {"title": "每 天 亿 遍 🔥 防 止 早 恋！", "author": "兔总裁s", "category": "娱乐", "views": "145.1万", "duration": "01:13", "date": "2026-11-10", "image": 117590131219163, "cover": "Assets/popular/BV1ZAWM61Evb.jpg"},
+      {"title": "BLG凭什么打破T1的不败神话？万字复盘BLG战胜T1挺进决赛！", "author": "分析师蓝宝石", "category": "游戏", "views": "24.7万", "duration": "23:33", "date": "2026-11-11", "image": 117595701250009, "cover": "Assets/popular/BV1MdWL6WEYg.jpg"},
+      {"title": "Faker了一辈子的蹲方魂 终于…", "author": "是大洋芋", "category": "娱乐", "views": "208.1万", "duration": "01:41", "date": "2026-11-09", "image": 117586960321424, "cover": "Assets/popular/BV1aYW86vEte.jpg"},
+      {"title": "最狠一期，后背发凉！这剧的尺度真的挺大“已经收着拍了”！万字细嗦《谷雨》第五期 包含；剧情、细节、镜头语言、人性解析等", "author": "不善言辞的秃秃", "category": "娱乐", "views": "38.1万", "duration": "27:18", "date": "2026-11-10", "image": 117591775447694, "cover": "Assets/popular/BV11MWu6wEky.jpg"},
+      {"title": "射手是最不吃经济的位置，因为前期拿了经济也没用", "author": "磊哥游戏", "category": "游戏", "views": "28.5万", "duration": "03:11", "date": "2026-11-11", "image": 117591020474715, "cover": "Assets/popular/BV13pWg6rEj9.jpg"},
+      {"title": "黄仁勋带她吃的饭店，我带你们去看看", "author": "王师傅の日记", "category": "生活", "views": "110.7万", "duration": "22:19", "date": "2026-11-10", "image": 117589896469352, "cover": "Assets/popular/BV1JCWM6JEFU.jpg"},
+      {"title": "跨越3500公里探秘亚洲第一商场！居然在这个国家？", "author": "-LKs-", "category": "娱乐", "views": "16.2万", "duration": "24:05", "date": "2026-11-11", "image": 117592362584890, "cover": "Assets/popular/BV1ViW36DErN.jpg"},
+      {"title": "特厨探店|探店这么多年，没想到还是会震惊！", "author": "特厨隋坡", "category": "美食", "views": "122.3万", "duration": "02:44", "date": "2026-11-10", "image": 117586843012148, "cover": "Assets/popular/BV1LxW863EaB.jpg"},
+      {"title": "何同学工作室长啥样？", "author": "老师好我叫何同学", "category": "科技", "views": "38.3万", "duration": "06:01", "date": "2026-11-10", "image": 117592094150834, "cover": "Assets/popular/BV1AcWG6eE1V.jpg"},
+      {"title": "《我的猫猫比我富》第三集", "author": "小弹簧晓丹", "category": "娱乐", "views": "74.4万", "duration": "07:00", "date": "2026-11-09", "image": 117581423837354, "cover": "Assets/popular/BV1JCWH6dEq2.jpg"},
+      {"title": "《鸣潮》共鸣者「莉莉」PV |  忘记恐惧", "author": "鸣潮", "category": "游戏", "views": "143.8万", "duration": "17:06", "date": "2026-11-10", "image": 117586356409971, "cover": "Assets/popular/BV1VmW46bEfC.jpg"},
+      {"title": "来东京，拍到了些怪东西", "author": "百万剪辑狮", "category": "旅行", "views": "115.3万", "duration": "01:14", "date": "2026-11-09", "image": 117584292745217, "cover": "Assets/popular/BV179WW6oESh.jpg"},
+      {"title": "THANK YOU Smoggy", "author": "EDG电子竞技俱乐部", "category": "游戏", "views": "111.3万", "duration": "05:38", "date": "2026-11-10", "image": 117590701707480, "cover": "Assets/popular/BV1v8WT6uEJH.jpg"},
+      {"title": "【游戏众生相】传奇之战：我到底应该如何跟你讲述这个故事呢....", "author": "尚在天国EX", "category": "游戏", "views": "38.6万", "duration": "61:05", "date": "2026-11-10", "image": 117589879558256, "cover": "Assets/popular/BV1m4WM6FEJN.jpg"},
+      {"title": "就是等到你来捡咯", "author": "薪儿姐师尊", "category": "娱乐", "views": "231.0万", "duration": "03:09", "date": "2026-11-08", "image": 117578773039728, "cover": "Assets/popular/BV1i64s6KEQ3.jpg"},
+      {"title": "当杀手和律师都以为对方是同行", "author": "小草律师呀", "category": "生活", "views": "221.7万", "duration": "01:45", "date": "2026-11-08", "image": 117579846781896, "cover": "Assets/popular/BV1eNW76KEdJ.jpg"},
+      {"title": "当队友拿不同击杀数时我的态度", "author": "FLC_NiKo", "category": "游戏", "views": "150.5万", "duration": "00:24", "date": "2026-11-10", "image": 117591557281381, "cover": "Assets/popular/BV15eWu65Ee1.jpg"},
+      {"title": "【自制LPL首胜T1宣传片】这座山，这条河，我们走了多久？", "author": "拂水房-房东", "category": "生活", "views": "36.0万", "duration": "08:30", "date": "2026-11-09", "image": 117586473913321, "cover": "Assets/popular/BV1xcWt6SEhQ.jpg"},
+      {"title": "【手残联萌】12周年特别节目", "author": "裂独舞", "category": "游戏", "views": "27.7万", "duration": "100:48", "date": "2026-11-11", "image": 117591876044354, "cover": "Assets/popular/BV14NWu6PEfo.jpg"},
+      {"title": "如何盗走《蒙娜丽莎》？【硬核狠人92】", "author": "小约翰可汗", "category": "知识", "views": "148.2万", "duration": "39:45", "date": "2026-11-10", "image": 117587027433065, "cover": "Assets/popular/BV1i4W86zEUS.jpg"},
+      {"title": "怎么会有这么好吃的家常菜！烧白太香了！", "author": "干饭三健客", "category": "美食", "views": "34.8万", "duration": "08:27", "date": "2026-11-10", "image": 117591305623649, "cover": "Assets/popular/BV1KDWu6YEVF.jpg"}
+    ];
+    const videos = [...homeFeed, ...sampleVideos];
+    const coverFor = video => video.cover ?? `Assets/cover-${String(video.image).padStart(2,'0')}.jpg`;
+    const escapeHTML = value => String(value).replace(/[&<>"\']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
     const records = {'历史记录':[], '收藏夹':[], '稍后再看':[]};
     const recordKey = 'video-redesign-records';
     try {
@@ -260,7 +314,7 @@
     function getFiltered(){
       if (page in records) return records[page].map(id => videos.find(video => video.image === id));
       return homeFeed.filter(v=>(category==='推荐'||v.category===category)&&(!query||`${v.title} ${v.author} ${v.category}`.toLowerCase().includes(query)))}
-    function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card" style="--card-tint:hsl(${Math.round((v.image*137.508+18)%360)} 24% 92%)"><button class="card-media" data-video="${v.image}" aria-label="查看${v.title}"><img src="Assets/cover-${String(v.image).padStart(2,'0')}.jpg" alt="${v.category}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${v.title}</h4><div class="card-meta"><span>${v.author}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;document.querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>openVideo(videos.find(v=>v.image===Number(b.dataset.video))))}
+    function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card" style="--card-tint:hsl(${Math.round((v.image*137.508+18)%360)} 24% 92%)"><button class="card-media" data-video="${v.image}" aria-label="查看${escapeHTML(v.title)}"><img src="${coverFor(v)}" alt="${escapeHTML(v.category)}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${escapeHTML(v.title)}</h4><div class="card-meta"><span>${escapeHTML(v.author)}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;document.querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>openVideo(videos.find(v=>v.image===Number(b.dataset.video))))}
     const masthead = $('masthead');
     const mastheadBanner = $('mastheadBanner');
     let bannerObserver;
@@ -302,7 +356,7 @@
       currentVideo = video;
       records['历史记录'] = [video.image, ...records['历史记录'].filter(id => id !== video.image)];
       saveRecords();
-      $('modalImage').src = `Assets/cover-${String(video.image).padStart(2,'0')}.jpg`;
+      $('modalImage').src = coverFor(video);
       $('modalImage').alt = video.title;
       $('modalTitle').textContent = video.title;
       $('modalInfo').textContent = `${video.author} · ${video.category} · ${video.views}次观看 · ${video.duration}`;
