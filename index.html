@@ -107,9 +107,10 @@
     .more-nav[open] summary svg{transform:rotate(180deg)}
     .more-nav-links{display:grid;gap:4px;margin-top:6px}
     .sidebar .more-nav-links a{padding-block:9px;text-decoration:none}
-    .sidebar.collapsed .more-nav-links a{font-size:11px;white-space:normal}
+    .sidebar.collapsed .more-nav{display:none}
     @media(max-width:760px){
-      .sidebar:not(.expanded-mobile) .more-nav-links a{font-size:11px;white-space:normal}
+      .sidebar:not(.expanded-mobile) .more-nav{display:none}
+      .sidebar.expanded-mobile .more-nav{display:block}
     }
   </style>
 </head>
