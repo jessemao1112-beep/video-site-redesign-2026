@@ -10,11 +10,19 @@
     :root{--bg:#f7f9fb;--ink:#18242e;--muted:#84919a;--line:#e7edf0;--pink:#FB7299;--pink-soft:#fff0f5;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
     *{box-sizing:border-box}body{margin:0;min-width:320px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #ffb5cb;outline-offset:3px}svg{display:block;width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}img{display:block;max-width:100%}[hidden]{display:none!important}
     .masthead{position:relative;height:clamp(112px,9.4vw,220px);overflow:hidden;background:#5c4b38;color:#fff}.masthead-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}.masthead-banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#1a1d2499,transparent 65%),linear-gradient(#141a2580,transparent 85%);pointer-events:none}.masthead-inner{position:relative;z-index:1;display:flex;align-items:center;gap:clamp(12px,1.6vw,28px);width:100%;height:84px;padding:0 clamp(20px,3vw,52px)}.brand{display:block;flex:none;width:100px;line-height:0}.brand-logo{width:100%;height:auto}.primary-nav{display:flex;align-items:center;gap:2px;min-width:0}.nav-item{border:0;background:transparent;color:#fff;display:flex;align-items:center;gap:7px;white-space:nowrap;padding:10px 9px;border-radius:9px;font-size:13px;font-weight:650;text-shadow:0 1px 8px #182126aa}.nav-item svg{width:16px;height:16px}.nav-item:hover,.nav-item.active{background:#ffffff35;color:#fff}.nav-item.active{box-shadow:inset 0 -2px var(--pink)}.search{height:40px;width:clamp(180px,22vw,350px);flex:none;margin-left:auto;display:flex;align-items:center;gap:9px;background:#ffffffee;border:1px solid #fff9;border-radius:10px;padding:0 12px;color:#8a9ba4;box-shadow:0 3px 14px #19212b1c}.search svg{width:17px;height:17px;flex:none}.search input{min-width:0;width:100%;border:0;outline:0;color:var(--ink);background:transparent;font-size:12px}.search input::placeholder{color:#9ba8ae}.top-actions{display:flex;align-items:center;gap:10px;flex:none}.icon-button{border:0;background:#ffffff22;color:#fff;padding:8px;border-radius:10px}.icon-button:hover{background:#ffffff55}.avatar{width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:50%;background:#ffe0ea;color:#d34e79;font-size:12px;font-weight:800}
-    .content{padding:0 clamp(22px,3.3vw,54px) 80px;max-width:1900px;margin:0 auto}.category-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid var(--line);padding-top:14px}.category-list{display:flex;align-items:center;gap:4px;overflow:auto;scrollbar-width:none}.category-list::-webkit-scrollbar{display:none}.category{position:relative;flex:none;padding:15px 15px 17px;border:0;background:transparent;color:#697780;font-size:14px;font-weight:600;white-space:nowrap}.category:hover{color:var(--pink)}.category.active{color:#d94f7c}.category.active::after{content:"";position:absolute;height:3px;border-radius:3px 3px 0 0;background:var(--pink);bottom:0;left:15px;right:15px}.more-button{flex:none;display:flex;align-items:center;gap:5px;background:transparent;border:0;color:#7d8b94;font-size:12px;padding:10px 2px}.more-button svg{width:15px;height:15px;transition:transform .2s}.more-button[aria-expanded="true"] svg{transform:rotate(180deg)}.extra-categories{display:none;gap:8px;flex-wrap:wrap;padding:16px 0 2px}.extra-categories.open{display:flex}.extra-categories button{border:1px solid #e2ebed;border-radius:20px;background:#fff;padding:7px 14px;color:#63717b;font-size:12px}.extra-categories button:hover,.extra-categories button.active{background:var(--pink-soft);border-color:#ffd0df;color:#d94f7c}
+    .content{padding:0 clamp(22px,3.3vw,54px) 80px;max-width:1900px;margin:0 auto}
+    .category-bar{padding-top:16px}
+    .category-list{display:flex;gap:12px;overflow-x:auto;padding:4px 3px 8px;scrollbar-width:thin}
+    .category{
+      flex:none;padding:8px 14px;border:0;border-radius:8px;
+      background:#eeeef0;color:#18242e;font-size:14px;font-weight:600;white-space:nowrap;
+    }
+    .category:hover{background:#e5e5e8}
+    .category.active{background:var(--pink);color:#361321}
     .video-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 18px;margin-top:24px}.card{min-width:0}.card-media{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;border-radius:12px;overflow:hidden;background:#e1e8e9;text-align:left}.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.card-media:hover img{transform:scale(1.055)}.card-media::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.55))}.duration{position:absolute;right:9px;bottom:9px;z-index:1;color:#fff;background:#101a2288;border-radius:4px;padding:3px 5px;font-size:11px;font-variant-numeric:tabular-nums}.views{position:absolute;left:10px;bottom:11px;z-index:1;display:flex;align-items:center;gap:5px;color:#fff;font-size:11px}.views svg{width:14px;height:14px;fill:#fff;stroke:none}.card-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin:12px 1px 11px;font-size:14px;font-weight:650;line-height:1.48;min-height:41px}.card-meta{display:flex;align-items:center;gap:7px;margin:0 1px;font-size:11px;color:#9ba8ae}.author-dot{width:17px;height:17px;display:grid;place-items:center;border-radius:50%;background:#ffe4ed;color:#d34e79;font-size:9px;font-weight:700}.card-meta .separator{margin:0 1px;color:#c4cdd0}.empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:#7d8a91;background:#fff;border:1px dashed var(--line);border-radius:16px}.empty strong{display:block;color:var(--ink);margin-bottom:7px}
     .modal{position:fixed;inset:0;background:#101c27bc;z-index:50;display:none;align-items:center;justify-content:center;padding:20px}.modal.open{display:flex}.modal-panel{width:min(680px,100%);background:#fff;border-radius:17px;overflow:hidden;box-shadow:0 30px 90px #0b1c2a60}.modal-image{width:100%;aspect-ratio:16/9;object-fit:cover;background:#ddd}.modal-body{padding:22px 25px 25px}.modal-body h2{font-size:21px;margin:0 0 11px}.modal-body p{font-size:13px;line-height:1.7;color:#7a8992;margin:0}.modal-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:22px}.modal-footer span{font-size:12px;color:#a2adb2}.close-modal{border:0;background:var(--pink);color:white;border-radius:9px;padding:9px 16px;font-weight:700;font-size:12px}
     .secondary-page .masthead{height:84px;background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}.secondary-page .masthead-banner{display:none}.secondary-page .nav-item{color:#596771;text-shadow:none}.secondary-page .nav-item:hover,.secondary-page .nav-item.active{color:#d94f7c;background:var(--pink-soft)}.secondary-page .icon-button{color:#596771;background:#f4f6f7}.secondary-page .search{border-color:var(--line);box-shadow:none}
-    @media(max-width:1199px){.video-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav-item{padding:9px 6px}.nav-item svg{display:none}}@media(max-width:760px){.masthead{height:138px}.masthead-inner{height:100%;display:grid;grid-template-columns:100px minmax(0,1fr) auto;grid-template-rows:68px 50px;gap:0 10px;padding:0 18px;align-content:start}.brand{grid-column:1;grid-row:1}.search{grid-column:2;grid-row:1;width:100%;height:36px}.top-actions{grid-column:3;grid-row:1;gap:5px}.icon-button{display:none}.primary-nav{grid-column:1/-1;grid-row:2;align-self:start;gap:3px;overflow:auto;scrollbar-width:none}.primary-nav::-webkit-scrollbar{display:none}.nav-item{font-size:13px;padding:9px 12px}.secondary-page .masthead{height:118px}.content{padding:0 18px 60px}.category-bar{padding-top:9px;gap:8px}.category{padding:12px 10px 14px;font-size:13px}.category.active::after{left:10px;right:10px}.more-button{font-size:0}.more-button svg{width:17px;height:17px}.video-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 12px;margin-top:18px}.card-title{font-size:12px;min-height:36px}.card-meta{font-size:10px}}@media(max-width:480px){.masthead-inner{grid-template-columns:86px minmax(0,1fr) auto;padding:0 12px;gap:0 8px}.brand{width:86px}.avatar{width:30px;height:30px}.search{padding:0 8px}.search input{font-size:11px}.card-title{margin-top:8px}.card-meta .separator,.card-meta .date{display:none}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important}}
+    @media(max-width:1199px){.video-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav-item{padding:9px 6px}.nav-item svg{display:none}}@media(max-width:760px){.masthead{height:138px}.masthead-inner{height:100%;display:grid;grid-template-columns:100px minmax(0,1fr) auto;grid-template-rows:68px 50px;gap:0 10px;padding:0 18px;align-content:start}.brand{grid-column:1;grid-row:1}.search{grid-column:2;grid-row:1;width:100%;height:36px}.top-actions{grid-column:3;grid-row:1;gap:5px}.icon-button{display:none}.primary-nav{grid-column:1/-1;grid-row:2;align-self:start;gap:3px;overflow:auto;scrollbar-width:none}.primary-nav::-webkit-scrollbar{display:none}.nav-item{font-size:13px;padding:9px 12px}.secondary-page .masthead{height:118px}.content{padding:0 18px 60px}.video-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 12px;margin-top:18px}.card-title{font-size:12px;min-height:36px}.card-meta{font-size:10px}}@media(max-width:480px){.masthead-inner{grid-template-columns:86px minmax(0,1fr) auto;padding:0 12px;gap:0 8px}.brand{width:86px}.avatar{width:30px;height:30px}.search{padding:0 8px}.search input{font-size:11px}.card-title{margin-top:8px}.card-meta .separator,.card-meta .date{display:none}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important}}
     /* Primary navigation remains a collapsible left rail. */
     :root{--sidebar:218px}
     .sidebar{position:fixed;inset:0 auto 0 0;z-index:20;width:var(--sidebar);display:flex;flex-direction:column;background:#fff;border-right:1px solid var(--line);transition:width .24s ease;overflow:hidden}
@@ -101,16 +109,12 @@
       .masthead-inner .search{grid-area:1/1;justify-self:center;max-width:280px}
       .masthead-inner .top-actions{grid-area:2/1}
     }
-    .sidebar .more-nav{display:block}
-    .more-nav summary{list-style:none;cursor:pointer}
-    .more-nav summary::-webkit-details-marker{display:none}
-    .more-nav[open] summary svg{transform:rotate(180deg)}
-    .more-nav-links{display:grid;gap:4px;margin-top:6px}
-    .sidebar .more-nav-links a{padding-block:9px;text-decoration:none}
+    .sidebar .more-nav{display:grid}
+    .sidebar .more-nav a{padding-block:9px;text-decoration:none}
     .sidebar.collapsed .more-nav{display:none}
     @media(max-width:760px){
       .sidebar:not(.expanded-mobile) .more-nav{display:none}
-      .sidebar.expanded-mobile .more-nav{display:block}
+      .sidebar.expanded-mobile .more-nav{display:grid}
     }
   </style>
 </head>
@@ -121,23 +125,18 @@
     <div class="sidebar-links">
       <nav class="primary-nav" id="primaryNav" aria-label="一级导航"></nav>
       <nav class="primary-nav record-nav" id="recordNav" aria-label="个人记录"></nav>
-      <details class="primary-nav record-nav more-nav">
-        <summary class="nav-item" aria-label="更多入口" title="更多入口">
-          <svg aria-hidden="true"><use href="#i-down"/></svg><span>更多入口</span>
-        </summary>
-        <nav class="more-nav-links" aria-label="更多入口">
-          <a class="nav-item" href="https://game.bilibili.com/platform" target="_blank" rel="noopener" title="游戏中心（在新标签页打开）">游戏中心</a>
-          <a class="nav-item" href="https://show.bilibili.com/platform/home.html" target="_blank" rel="noopener" title="会员购（在新标签页打开）">会员购</a>
-          <a class="nav-item" href="https://manga.bilibili.com/" target="_blank" rel="noopener" title="漫画（在新标签页打开）">漫画</a>
-          <a class="nav-item" href="https://www.bilibili.com/match/home/" target="_blank" rel="noopener" title="赛事（在新标签页打开）">赛事</a>
-          <a class="nav-item" href="https://www.bilibili.com/blackboard/era/reward-activity-list-page.html" target="_blank" rel="noopener" title="活动（在新标签页打开）">活动</a>
-          <a class="nav-item" href="https://www.bilibili.com/blackboard/activity-5zJxM3spoS.html" target="_blank" rel="noopener" title="社区中心（在新标签页打开）">社区中心</a>
-          <a class="nav-item" href="https://www.bilibili.com/cheese/" target="_blank" rel="noopener" title="课堂（在新标签页打开）">课堂</a>
-          <a class="nav-item" href="https://music.bilibili.com/pc/music-center/" target="_blank" rel="noopener" title="新歌热榜（在新标签页打开）">新歌热榜</a>
-          <a class="nav-item" href="https://www.bilibili.com/read/home/" target="_blank" rel="noopener" title="专栏（在新标签页打开）">专栏</a>
-          <a class="nav-item" href="https://love.bilibili.com/list?project_type=1" target="_blank" rel="noopener" title="公益（在新标签页打开）">公益</a>
-        </nav>
-      </details>
+      <nav class="primary-nav record-nav more-nav" aria-label="更多入口">
+        <a class="nav-item" href="https://game.bilibili.com/platform" target="_blank" rel="noopener" title="游戏中心（在新标签页打开）">游戏中心</a>
+        <a class="nav-item" href="https://show.bilibili.com/platform/home.html" target="_blank" rel="noopener" title="会员购（在新标签页打开）">会员购</a>
+        <a class="nav-item" href="https://manga.bilibili.com/" target="_blank" rel="noopener" title="漫画（在新标签页打开）">漫画</a>
+        <a class="nav-item" href="https://www.bilibili.com/match/home/" target="_blank" rel="noopener" title="赛事（在新标签页打开）">赛事</a>
+        <a class="nav-item" href="https://www.bilibili.com/blackboard/era/reward-activity-list-page.html" target="_blank" rel="noopener" title="活动（在新标签页打开）">活动</a>
+        <a class="nav-item" href="https://www.bilibili.com/blackboard/activity-5zJxM3spoS.html" target="_blank" rel="noopener" title="社区中心（在新标签页打开）">社区中心</a>
+        <a class="nav-item" href="https://www.bilibili.com/cheese/" target="_blank" rel="noopener" title="课堂（在新标签页打开）">课堂</a>
+        <a class="nav-item" href="https://music.bilibili.com/pc/music-center/" target="_blank" rel="noopener" title="新歌热榜（在新标签页打开）">新歌热榜</a>
+        <a class="nav-item" href="https://www.bilibili.com/read/home/" target="_blank" rel="noopener" title="专栏（在新标签页打开）">专栏</a>
+        <a class="nav-item" href="https://love.bilibili.com/list?project_type=1" target="_blank" rel="noopener" title="公益（在新标签页打开）">公益</a>
+      </nav>
     </div>
     <div class="sidebar-bottom"><button class="collapse-button" id="collapseButton" aria-label="折叠一级导航" aria-expanded="true" title="折叠一级导航"><svg><use href="#i-chevrons"/></svg><span>收起侧边栏</span></button></div>
   </aside>
@@ -164,8 +163,9 @@
       </div>
     </header>
     <div class="content" id="homeContent">
-      <div class="category-bar" id="categoryBar"><div class="category-list" id="categoryList" role="tablist" aria-label="二级导航"></div><button class="more-button" id="moreButton" aria-expanded="false" aria-controls="extraCategories">展开更多 <svg><use href="#i-down"/></svg></button></div>
-      <div class="extra-categories" id="extraCategories"></div>
+      <div class="category-bar" id="categoryBar">
+        <div class="category-list" id="categoryList" role="group" aria-label="视频分类"></div>
+      </div>
       <div class="video-grid" id="videoGrid"></div>
     </div>
   </main>
@@ -175,8 +175,7 @@
   </div><div class="modal-footer"><span>视频播放资源可在接入内容服务后启用</span><button class="close-modal" id="closeModal">关闭</button></div></div></div></div>
   <script>
     const pages=[['首页','i-home'],['动态','i-activity'],['追番','i-tv'],['影视','i-film'],['直播','i-live']];
-    const categories=['推荐','生活','美食','游戏','音乐','知识','娱乐','鬼畜'];
-    const extras=['旅行','科技','运动','时尚','萌宠','纪录片'];
+    const categories=['推荐','生活','美食','游戏','音乐','知识','娱乐','鬼畜','旅行','科技','运动','时尚','萌宠','纪录片'];
     const videos=[
       {title:'下班后，给自己做一顿认真又简单的晚餐',author:'小林的日常',category:'美食',views:'24.8万',duration:'08:42',date:'2小时前',image:1},
       {title:'在游戏里建一座会发光的海边小镇',author:'像素研究所',category:'游戏',views:'18.6万',duration:'14:26',date:'5小时前',image:2},
@@ -220,12 +219,29 @@
       category = '推荐';
       query = '';
       $('searchInput').value = '';
-      $('extraCategories').classList.remove('open');
-      $('moreButton').setAttribute('aria-expanded', 'false');
       window.scrollTo(0, 0);
       updatePage();
     }
-    function renderCategories(){ $('categoryList').innerHTML=categories.map(c=>`<button role="tab" aria-selected="${category===c}" class="category ${category===c?'active':''}" data-category="${c}">${c}</button>`).join('');$('extraCategories').innerHTML=extras.map(c=>`<button class="${category===c?'active':''}" data-category="${c}">${c}</button>`).join('');document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{category=b.dataset.category;renderCategories();renderFeed()})}
+    function renderCategories() {
+      const list = $('categoryList');
+      if (!list.childElementCount) {
+        list.innerHTML = categories.map(name =>
+          `<button type="button" class="category" data-category="${name}">${name}</button>`
+        ).join('');
+        list.onclick = event => {
+          const button = event.target.closest('[data-category]');
+          if (!button) return;
+          category = button.dataset.category;
+          renderCategories();
+          renderFeed();
+        };
+      }
+      for (const button of list.children) {
+        const selected = button.dataset.category === category;
+        button.classList.toggle('active', selected);
+        button.setAttribute('aria-pressed', String(selected));
+      }
+    }
     function getFiltered(){
       if (page in records) return records[page].map(id => videos.find(video => video.image === id));
       return homeFeed.filter(v=>(category==='推荐'||v.category===category)&&(!query||`${v.title} ${v.author} ${v.category}`.toLowerCase().includes(query)))}
@@ -288,7 +304,6 @@
     $('favoriteButton').onclick = () => toggleRecord('收藏夹');
     $('watchLaterButton').onclick = () => toggleRecord('稍后再看');
     $('collapseButton').onclick=()=>{const sidebar=$('sidebar');const mobile=window.matchMedia('(max-width:760px)').matches;const collapsed=mobile?sidebar.classList.toggle('expanded-mobile'):sidebar.classList.toggle('collapsed');if(!mobile)$('main').classList.toggle('sidebar-collapsed',collapsed);const isOpen=mobile?collapsed:!collapsed;$('collapseButton').setAttribute('aria-expanded',String(isOpen));$('collapseButton').setAttribute('aria-label',isOpen?'折叠一级导航':'展开一级导航');$('collapseButton').title=isOpen?'折叠一级导航':'展开一级导航'};
-    $('moreButton').onclick=()=>{const open=$('extraCategories').classList.toggle('open');$('moreButton').setAttribute('aria-expanded',String(open))};
     $('searchInput').oninput=e=>{query=e.target.value.trim().toLowerCase();if(page!=='首页'){page='首页';updatePage()}else renderFeed()};
     $('closeModal').onclick=closeVideo;$('videoModal').onclick=e=>{if(e.target===$('videoModal'))closeVideo()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo()});
     $('notifyButton').onclick=()=>alert('暂时没有新消息');$('profileButton').onclick=()=>alert('个人中心即将开放');
