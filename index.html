@@ -177,11 +177,12 @@
       background-size:100% auto;
       background-repeat:no-repeat;
     }
-    .sidebar .nav-item,.sidebar .display-settings label,.sidebar .collapse-button{
-      color:#39332f;
-      text-shadow:0 0 4px #fff,0 0 9px #fff;
-    }
-    .sidebar .nav-item.active{color:#ad3059}
+    .sidebar .brand-logo{width:100px}
+    .sidebar .nav-item,.sidebar .display-settings label,.sidebar .collapse-button{color:#4f555b;text-shadow:none;font-size:14px;font-weight:600}
+    .sidebar .nav-item.active{color:#d94f7c}
+    .record-popover{position:fixed;z-index:35;width:min(620px,calc(100vw - 90px));max-height:min(620px,calc(100vh - 24px));overflow:auto;background:#fff;border:1px solid #e4e8eb;border-radius:16px;box-shadow:0 18px 50px #27323b30;padding:22px;color:var(--ink)}
+    .record-popover h2{margin:0;font-size:20px}.record-popover-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.record-popover-head button,.record-popover-footer button{border:0;background:transparent;color:var(--pink);cursor:pointer;font-size:13px}.record-popover-list{display:grid;gap:14px}.record-popover-row{display:flex;align-items:center;gap:13px;width:100%;border:0;background:transparent;text-align:left;padding:3px;border-radius:9px;color:inherit}.record-popover-row:hover{background:#f7f8fa}.record-popover-row img{width:126px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;flex:none}.record-popover-row strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;line-height:1.45}.record-popover-row small{display:block;color:#8c979f;font-size:12px;margin-top:7px}.record-popover-live{display:flex;gap:18px;margin-bottom:16px;overflow:auto}.record-popover-live span{display:grid;gap:5px;justify-items:center;min-width:72px;font-size:11px;color:#69737b;text-align:center}.record-popover-live b{display:grid;place-items:center;width:48px;height:48px;border:3px solid var(--pink);border-radius:50%;background:#fff2f6;color:#c94d73;font-size:19px}.record-popover-divider{color:#9aa5ac;font-size:12px;text-align:center;margin:12px 0 18px}.record-popover-folders{display:grid;grid-template-columns:140px 1fr;gap:16px}.record-popover-folders aside{border-right:1px solid #e9edf0;padding-right:12px}.record-popover-folders aside button{display:block;width:100%;padding:10px;border:0;background:transparent;text-align:left;border-radius:8px;color:#52606b}.record-popover-folders aside button.active{background:#fff0f5;color:#d94f7c}.record-popover-tabs{display:flex;border-bottom:1px solid #e9edf0;margin-bottom:17px}.record-popover-tabs button{flex:1;border:0;border-bottom:3px solid transparent;background:transparent;padding:10px;color:#68757f}.record-popover-tabs button.active{border-color:var(--pink);color:var(--pink)}.record-popover-footer{border-top:1px solid #e9edf0;text-align:center;margin-top:17px;padding-top:15px}
+    @media(max-width:760px){.record-popover{width:min(500px,calc(100vw - 80px));padding:14px}.record-popover-folders{grid-template-columns:105px 1fr}.record-popover-row img{width:92px}}
   </style>
 </head>
 <body>
@@ -209,6 +210,7 @@
     </div>
     <div class="sidebar-bottom"><button class="collapse-button" id="collapseButton" aria-label="折叠一级导航" aria-expanded="true" title="折叠一级导航"><svg><use href="#i-chevrons"/></svg><span>收起侧边栏</span></button></div>
   </aside>
+  <div class="record-popover" id="recordPopover" role="dialog" aria-label="个人记录预览" hidden></div>
   <main id="main" class="main">
     <div class="masthead-banner" id="mastheadBanner">
       <img class="masthead-image" src="Assets/头图.png" alt="金色秋林中的幻想旅程" />
@@ -334,9 +336,73 @@
         }).join('');
       }
       document.querySelectorAll('[data-page]').forEach(button => {
-        button.onclick = () => navigate(button.dataset.page);
+        button.onclick = () => { closeRecordPopover(); navigate(button.dataset.page); };
+        if (button.closest('#recordNav')) {
+          button.addEventListener('mouseenter', () => showRecordPopover(button));
+          button.addEventListener('focus', () => showRecordPopover(button));
+        }
       });
     }
+    const recordPopover = $('recordPopover');
+    const previewFolders = ['默认收藏夹', '周末灵感', '喜欢的音乐'];
+    let previewFolder = 0;
+    let laterTab = '视频';
+    let popoverCloseTimer;
+    function closeRecordPopover() { recordPopover.hidden = true; }
+    function previewRows(name) {
+      const selected = records[name].map(id => videos.find(video => video.image === id)).filter(Boolean);
+      const examples = name === '历史记录' ? sampleVideos.slice(0, 3) :
+        name === '收藏夹' ? sampleVideos.slice(3 + previewFolder * 2, 6 + previewFolder * 2) : sampleVideos.slice(laterTab === '视频' ? 6 : laterTab === '直播' ? 0 : 3, laterTab === '视频' ? 9 : laterTab === '直播' ? 3 : 6);
+      return (selected.length ? selected : examples).slice(0, 4).map(video => `
+        <button class="record-popover-row" data-preview-video="${video.image}">
+          <img src="${coverFor(video)}" alt="" loading="lazy">
+          <span><strong>${escapeHTML(video.title)}</strong><small>${escapeHTML(video.author)} · ${escapeHTML(video.duration)}</small></span>
+        </button>`).join('');
+    }
+    function renderRecordPopover(name) {
+      let content = '';
+      if (name === '历史记录') {
+        content = `<div class="record-popover-head"><h2>历史记录</h2><button data-preview-page="历史记录">查看更多 ›</button></div>
+          <div class="record-popover-live">${sampleVideos.slice(0, 5).map(video => `<span><b>${escapeHTML(video.author.slice(0, 1))}</b>${escapeHTML(video.author)}</span>`).join('')}</div>
+          <div class="record-popover-divider">最近观看</div><div class="record-popover-list">${previewRows(name)}</div>`;
+      } else if (name === '收藏夹') {
+        content = `<div class="record-popover-head"><h2>收藏夹</h2></div><div class="record-popover-folders"><aside>${previewFolders.map((folder, index) => `<button data-preview-folder="${index}" class="${index === previewFolder ? 'active' : ''}">${folder}</button>`).join('')}</aside><div class="record-popover-list">${previewRows(name)}</div></div>
+          <div class="record-popover-footer"><button data-preview-page="收藏夹">查看全部收藏</button></div>`;
+      } else {
+        content = `<div class="record-popover-tabs">${['视频', '直播', '专栏'].map(tab => `<button data-preview-tab="${tab}" class="${tab === laterTab ? 'active' : ''}">${tab}</button>`).join('')}</div>
+          <div class="record-popover-divider">${laterTab === '视频' ? '待观看视频' : '稍后再看 · ' + laterTab}</div><div class="record-popover-list">${previewRows(name)}</div>
+          <div class="record-popover-footer"><button data-preview-page="稍后再看">查看全部</button></div>`;
+      }
+      recordPopover.innerHTML = content;
+    }
+    function showRecordPopover(button) {
+      clearTimeout(popoverCloseTimer);
+      const name = button.dataset.page;
+      recordPopover.dataset.page = name;
+      renderRecordPopover(name);
+      const sidebarRight = $('sidebar').getBoundingClientRect().right;
+      recordPopover.style.left = `${sidebarRight}px`;
+      recordPopover.style.top = `${Math.max(12, Math.min(button.getBoundingClientRect().top - 18, innerHeight - 420))}px`;
+      recordPopover.hidden = false;
+    }
+    $('recordNav').addEventListener('mouseleave', () => {
+      popoverCloseTimer = setTimeout(closeRecordPopover, 160);
+    });
+    recordPopover.addEventListener('mouseenter', () => clearTimeout(popoverCloseTimer));
+    recordPopover.addEventListener('mouseleave', closeRecordPopover);
+    recordPopover.addEventListener('click', event => {
+      const videoButton = event.target.closest('[data-preview-video]');
+      const pageButton = event.target.closest('[data-preview-page]');
+      const folderButton = event.target.closest('[data-preview-folder]');
+      const tabButton = event.target.closest('[data-preview-tab]');
+      if (videoButton) { closeRecordPopover(); openVideo(videos.find(video => video.image === Number(videoButton.dataset.previewVideo))); }
+      if (pageButton) { closeRecordPopover(); navigate(pageButton.dataset.previewPage); }
+      if (folderButton) { previewFolder = Number(folderButton.dataset.previewFolder); renderRecordPopover('收藏夹'); }
+      if (tabButton) { laterTab = tabButton.dataset.previewTab; renderRecordPopover('稍后再看'); }
+    });
+    document.addEventListener('focusin', event => {
+      if (!event.target.closest('#recordNav, #recordPopover')) closeRecordPopover();
+    });
     function navigate(nextPage) {
       page = nextPage;
       category = '推荐';
