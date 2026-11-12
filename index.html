@@ -180,22 +180,23 @@
     .sidebar .brand-logo{width:100px}
     .sidebar .nav-item,.sidebar .display-settings label,.sidebar .collapse-button{color:#18242e;text-shadow:none;font-size:14px;font-weight:600}
     .sidebar .nav-item.active{color:#d94f7c}
-    .record-popover{position:fixed;z-index:35;width:min(310px,calc(100vw - 90px));height:min(280px,calc(100vh - 24px));overflow:auto;background:#fff;border:1px solid #e4e8eb;border-radius:16px;box-shadow:0 18px 50px #27323b30;padding:22px;color:var(--ink)}
+    .record-popover{position:fixed;z-index:35;width:min(372px,calc(100vw - 90px));height:min(420px,calc(100vh - 24px));overflow:auto;background:#fff;border:1px solid #e4e8eb;border-radius:16px;box-shadow:0 18px 50px #27323b30;padding:22px;color:var(--ink)}
     .record-popover h2{margin:0;font-size:20px}.record-popover-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.record-popover-head button,.record-popover-footer button{border:0;background:transparent;color:var(--pink);cursor:pointer;font-size:13px}.record-popover-list{display:grid;gap:14px}.record-popover-row{display:flex;align-items:center;gap:13px;width:100%;border:0;background:transparent;text-align:left;padding:3px;border-radius:9px;color:inherit}.record-popover-row:hover{background:#f7f8fa}.record-popover-row img{width:126px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;flex:none}.record-popover-row strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;line-height:1.45}.record-popover-row small{display:block;color:#8c979f;font-size:12px;margin-top:7px}.record-popover-live{display:flex;gap:18px;margin-bottom:16px;overflow:auto}.record-popover-live span{display:grid;gap:5px;justify-items:center;min-width:72px;font-size:11px;color:#69737b;text-align:center}.record-popover-live b{display:grid;place-items:center;width:48px;height:48px;border:3px solid var(--pink);border-radius:50%;background:#fff2f6;color:#c94d73;font-size:19px}.record-popover-divider{color:#9aa5ac;font-size:12px;text-align:center;margin:12px 0 18px}.record-popover-folders{display:grid;grid-template-columns:140px 1fr;gap:16px}.record-popover-folders aside{border-right:1px solid #e9edf0;padding-right:12px}.record-popover-folders aside button{display:block;width:100%;padding:10px;border:0;background:transparent;text-align:left;border-radius:8px;color:#52606b}.record-popover-folders aside button.active{background:#fff0f5;color:#d94f7c}.record-popover-tabs{display:flex;border-bottom:1px solid #e9edf0;margin-bottom:17px}.record-popover-tabs button{flex:1;border:0;border-bottom:3px solid transparent;background:transparent;padding:10px;color:#68757f}.record-popover-tabs button.active{border-color:var(--pink);color:var(--pink)}.record-popover-footer{border-top:1px solid #e9edf0;text-align:center;margin-top:17px;padding-top:15px}
     .record-popover{padding:14px}
     .record-popover h2{font-size:16px}
     .record-popover-head{margin-bottom:10px}
     .record-popover-list{gap:8px}
     .record-popover-row{gap:8px}
-    .record-popover-row img{width:82px}
-    .record-popover-row strong{font-size:12px}
+    .record-popover-row img{width:123px}
+    .record-popover-row strong{font-size:14px}
     .record-popover-row small{font-size:10px;margin-top:4px}
-    .record-popover-folders{grid-template-columns:88px 1fr;gap:8px}
+    .record-popover-folders{grid-template-columns:94px minmax(0,1fr);gap:8px}
     .record-popover-folders aside{padding-right:6px}
-    .record-popover-folders aside button{padding:7px 4px;font-size:11px}
+    .record-popover-folders aside button{padding:8px 4px;font-size:14px;font-weight:600}
     .record-popover-tabs{margin-bottom:10px}
     .record-popover-tabs button{padding:7px}
-    @media(max-width:760px){.record-popover{width:min(310px,calc(100vw - 80px))}.record-popover-row img{width:72px}}
+    @media(max-width:760px){.record-popover{width:min(372px,calc(100vw - 80px))}.record-popover-row img{width:min(108px,30vw)}.record-popover-folders{grid-template-columns:80px minmax(0,1fr)}}
+    @media(max-width:480px){.record-popover-folders{grid-template-columns:1fr}.record-popover-folders aside{display:flex;border-right:0;border-bottom:1px solid #e9edf0;padding:0 0 5px}.record-popover-folders aside button{text-align:center;font-size:12px}.record-popover-row img{width:80px}}
   </style>
 </head>
 <body>
@@ -385,8 +386,7 @@
       let content = '';
       if (name === '历史记录') {
         content = `<div class="record-popover-head"><h2>历史记录</h2><button data-preview-page="历史记录">查看更多 ›</button></div>
-          <div class="record-popover-tabs">${['视频', '直播', '专栏'].map(tab => `<button data-preview-tab="${tab}" class="${tab === historyTab ? 'active' : ''}">${tab}</button>`).join('')}</div>
-          <div class="record-popover-list">${previewRows(name)}</div>`;
+          <div class="record-popover-folders"><aside>${['视频', '直播', '专栏'].map(tab => `<button data-preview-tab="${tab}" class="${tab === historyTab ? 'active' : ''}">${tab}</button>`).join('')}</aside><div class="record-popover-list">${previewRows(name)}</div></div>`;
       } else if (name === '收藏夹') {
         content = `<div class="record-popover-head"><h2>收藏夹</h2></div><div class="record-popover-folders"><aside>${previewFolders.map((folder, index) => `<button data-preview-folder="${index}" class="${index === previewFolder ? 'active' : ''}">${folder}</button>`).join('')}</aside><div class="record-popover-list">${previewRows(name)}</div></div>
           <div class="record-popover-footer"><button data-preview-page="收藏夹">查看全部收藏</button></div>`;
