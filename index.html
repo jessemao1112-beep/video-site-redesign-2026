@@ -247,7 +247,7 @@
       {title:'想念海的时候，就来看一会儿浪',author:'浪花放送',category:'纪录片',views:'15.1万',duration:'18:08',date:'6天前',image:12}
     ];
     const personalPages = [['历史记录','i-history'],['收藏夹','i-bookmark'],['稍后再看','i-clock']];
-    const videos = [...homeFeed, ...sampleVideos];
+    const videos = [...homeFeed, ...archivedFeed, ...sampleVideos];
     function shuffleRecommendations() {
       const shuffled = [...homeFeed];
       for (let index = shuffled.length - 1; index > 0; index--) {

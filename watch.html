@@ -23,17 +23,23 @@
   main{display:grid;grid-template-columns:minmax(0,1fr) var(--rail);align-items:start}
   .watch-main{min-width:0}
   .player-shell{
-    --player-min:250px;
-    position:sticky;top:calc(var(--player-min) - var(--player-height));z-index:1;
-    --player-height:max(var(--player-min),calc(100vh - var(--header) - 218px));
-    --player-height:max(var(--player-min),calc(100dvh - var(--header) - 218px));
+    --player-height:max(0px,calc(100dvh - var(--header) - 218px));
     height:var(--player-height);
   }
-  .stage{
-    position:sticky;top:0;
-    height:max(var(--player-min),calc(var(--player-height) - var(--player-scroll, 0px)));
-    display:grid;place-items:center;container-type:size;background:#000;
+  .stage{height:100%;display:grid;place-items:center;container-type:size;background:#000}
+  .drag-handle{display:none}
+  .stage.floating{
+    position:fixed;z-index:10;left:var(--mini-x,12px);top:var(--mini-y,clamp(28px,calc(var(--header) + 40px),calc(100dvh - min(180px, (100dvh - 52px)))));
+    width:min(320px,calc(100vw - 24px),calc((100dvh - 52px) * 16 / 9));
+    height:auto;aspect-ratio:16/9;border-radius:0 0 8px 8px;
+    box-shadow:0 6px 24px #0005;
   }
+  .stage.floating .drag-handle{
+    display:block;position:absolute;bottom:100%;left:0;width:100%;height:28px;
+    border:0;border-radius:8px 8px 0 0;background:#242424;color:#fff;
+    cursor:grab;touch-action:none;user-select:none;
+  }
+  .drag-handle:active{cursor:grabbing}
   iframe{display:block;width:min(100cqw,calc(100cqh * 16 / 9));height:auto;aspect-ratio:16/9;border:0;background:#000}
   .comments{min-height:218px;padding:20px clamp(16px,3vw,48px) 32px}
   h1,h2,p{margin:0}
@@ -66,7 +72,7 @@
     .watch-main,main > aside{height:100%;min-height:0;overflow-y:auto;overscroll-behavior-y:contain}
   }
   @media(min-width:1440px){:root{--rail:500px}aside{padding:24px}}
-  @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:clamp(var(--player-min),56.25vw,calc(100dvh - var(--header) - 218px))}}
+  @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:min(56.25vw,max(0px,calc(100dvh - var(--header) - 218px)))}}
 </style>
 </head>
 <body>
@@ -89,7 +95,7 @@
 </header>
 <main>
   <div class="watch-main">
-    <div class="player-shell"><div class="stage"><iframe title="哔哩哔哩视频播放器" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div></div>
+    <div class="player-shell"><div class="stage"><button class="drag-handle" type="button" aria-label="拖动小窗，或点击返回播放器">⠿ 小窗播放</button><iframe title="哔哩哔哩视频播放器" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div></div>
     <section class="comments" aria-labelledby="comments-title">
       <h2 id="comments-title">评论 <small>3 · 示例评论</small></h2>
       <article class="comment"><span class="bubble" aria-hidden="true">北</span><div><strong>北看台</strong><p>决胜局那波团战值得单独拉出来复盘，几个人进场的时机太齐了。</p><small>2 小时前 · 328 赞</small></div></article>
@@ -124,21 +130,59 @@
 <script>
   const watchColumn = document.querySelector('.watch-main');
   const playerShell = document.querySelector('.player-shell');
+  const stage = playerShell.querySelector('.stage');
+  const dragHandle = stage.querySelector('.drag-handle');
   const singleColumn = matchMedia('(max-width: 679px)');
-  const watchHeader = document.querySelector('header');
 
-  function resizePlayerOnScroll() {
-    const scroll = singleColumn.matches ? window.scrollY - watchHeader.offsetHeight : watchColumn.scrollTop;
-    playerShell.style.setProperty('--player-scroll', Math.max(0, scroll) + 'px');
+  function syncMiniPlayer() {
+    const visibleTop = singleColumn.matches ? 0 : watchColumn.getBoundingClientRect().top;
+    stage.classList.toggle('floating', playerShell.getBoundingClientRect().bottom <= visibleTop);
   }
 
-  watchColumn.addEventListener('scroll', resizePlayerOnScroll, {passive: true});
-  window.addEventListener('scroll', resizePlayerOnScroll, {passive: true});
-  singleColumn.addEventListener('change', resizePlayerOnScroll);
-  resizePlayerOnScroll();
+  let miniPosition;
+  function moveMiniPlayer(x, y) {
+    miniPosition = {
+      x: Math.max(0, Math.min(x, document.documentElement.clientWidth - stage.offsetWidth)),
+      y: Math.max(dragHandle.offsetHeight, Math.min(y, window.innerHeight - stage.offsetHeight))
+    };
+    stage.style.setProperty('--mini-x', miniPosition.x + 'px');
+    stage.style.setProperty('--mini-y', miniPosition.y + 'px');
+  }
+
+  let drag;
+  let dragged = false;
+  dragHandle.addEventListener('pointerdown', event => {
+    if (event.button !== 0 || !event.isPrimary) return;
+    const bounds = stage.getBoundingClientRect();
+    drag = {id: event.pointerId, x: bounds.left - event.clientX, y: bounds.top - event.clientY,
+      startX: event.clientX, startY: event.clientY};
+    dragged = false;
+    dragHandle.setPointerCapture(event.pointerId);
+  });
+  dragHandle.addEventListener('pointermove', event => {
+    if (event.pointerId !== drag?.id) return;
+    dragged ||= Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) >= 4;
+    if (dragged) moveMiniPlayer(event.clientX + drag.x, event.clientY + drag.y);
+  });
+  dragHandle.addEventListener('lostpointercapture', () => { drag = undefined; });
+  dragHandle.addEventListener('click', event => {
+    if (dragged && event.detail !== 0) return;
+    if (singleColumn.matches) window.scrollTo(0, 0);
+    else watchColumn.scrollTop = 0;
+    syncMiniPlayer();
+  });
+
+  watchColumn.addEventListener('scroll', syncMiniPlayer, {passive: true});
+  window.addEventListener('scroll', syncMiniPlayer, {passive: true});
+  window.addEventListener('resize', () => {
+    syncMiniPlayer();
+    if (miniPosition && stage.classList.contains('floating')) moveMiniPlayer(miniPosition.x, miniPosition.y);
+  });
+  window.addEventListener('pageshow', syncMiniPlayer);
+  syncMiniPlayer();
 
   const requestedId = new URLSearchParams(location.search).get('v');
-  const selectedVideo = homeFeed.find(video => videoIdFromCover(video.cover) === requestedId);
+  const selectedVideo = [...homeFeed, ...archivedFeed].find(video => videoIdFromCover(video.cover) === requestedId);
   const activeVideoId = selectedVideo ? requestedId : 'BV1J9sF6YEdQ';
   const playerUrl = new URL('https://player.bilibili.com/player.html');
   playerUrl.search = new URLSearchParams({
