@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>传奇一串四！锐评BLG全员蜕变战胜GENG！拿下超级含金量冠军！</title>
+<style>
+  :root{--header:64px;--rail:320px;--pink:#fb6699;--muted:#67747e;--line:#e8ebef}
+  *{box-sizing:border-box}
+  body{margin:0;color:#18232d;background:#fff;font:14px/1.5 system-ui,"PingFang SC",sans-serif}
+  a{color:inherit;text-decoration:none}
+  button,input{font:inherit}
+  button{cursor:pointer}
+  :focus-visible{outline:2px solid #a52456;outline-offset:3px}
+  header{height:var(--header);display:grid;grid-template-columns:1fr minmax(0,525px) 1fr;align-items:center;gap:16px;padding:0 clamp(12px,2vw,30px);border-bottom:1px solid var(--line)}
+  .logo{display:block;width:84px;height:auto;filter:brightness(0) saturate(100%) invert(55%) sepia(72%) saturate(1488%) hue-rotate(303deg)}
+  form input{width:100%;height:38px;border:1px solid #b5bec8;border-radius:10px;padding:0 12px;background:#fff}
+  .top-actions{display:flex;align-items:center;justify-self:end;gap:4px}
+  .top-actions .icon-button{display:grid;place-items:center;width:28px;height:28px;padding:4px;border:0;border-radius:10px;color:#98a3ad;background:transparent}
+  .top-actions .icon-button:hover{background:#f4f6f8}
+  .top-actions svg{display:block;width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .top-actions .avatar{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:#ffe0ea;color:#d34e79;font-size:12px;font-weight:800}
+  main{display:grid;grid-template-columns:minmax(0,1fr) var(--rail);align-items:start}
+  .watch-main{min-width:0}
+  .player-shell{
+    --player-min:250px;
+    position:sticky;top:calc(var(--player-min) - var(--player-height));z-index:1;
+    --player-height:max(var(--player-min),calc(100vh - var(--header) - 218px));
+    --player-height:max(var(--player-min),calc(100dvh - var(--header) - 218px));
+    height:var(--player-height);
+  }
+  .stage{
+    position:sticky;top:0;
+    height:max(var(--player-min),calc(var(--player-height) - var(--player-scroll, 0px)));
+    display:grid;place-items:center;container-type:size;background:#000;
+  }
+  iframe{display:block;width:min(100cqw,calc(100cqh * 16 / 9));height:auto;aspect-ratio:16/9;border:0;background:#000}
+  .comments{min-height:218px;padding:20px clamp(16px,3vw,48px) 32px}
+  h1,h2,p{margin:0}
+  h2{font-size:18px}
+  h2 small{margin-left:8px;font-size:13px;color:var(--muted);font-weight:400}
+  .comment{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .bubble{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffe8f1;color:#a52456;font-weight:700}
+  .comment p{margin:3px 0}
+  small,.meta{color:var(--muted)}
+  aside{min-width:0;border-left:1px solid var(--line);padding:22px 18px}
+  .author{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .author .bubble{width:52px;height:52px;font-size:20px}
+  .button{display:inline-block;border:0;border-radius:8px;padding:6px 13px;margin-right:4px;background:#f1f3f5}
+  .follow,.button[aria-pressed=true]{color:#8c1746;background:#ffe1ed}
+  h1{font-size:clamp(18px,1.4vw,23px);line-height:1.4}
+  .meta{font-size:12px;margin:10px 0 16px}
+  .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px}
+  .actions button{display:grid;justify-items:center;gap:5px;background:none;border:0;color:inherit}
+  .actions span{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#f3f4f6;font-size:20px}
+  .actions button[aria-pressed=true] span{background:#ffe1ed;color:#a52456}
+  .feedback{min-height:20px;font-size:12px;color:var(--muted)}
+  .recommendations{border-top:1px solid var(--line);margin-top:10px;padding-top:14px}
+  .related{display:grid;grid-template-columns:46% minmax(0,1fr);gap:10px;margin-top:12px}
+  .related img{width:100%;aspect-ratio:16/9;border-radius:8px;object-fit:cover;background:#eef0f2}
+  .related strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:13px;line-height:1.35}
+  .related small{display:block;margin-top:4px;font-size:11px}
+  a:hover{color:#a52456}
+  @media(min-width:680px){
+    main{height:calc(100vh - var(--header));height:calc(100dvh - var(--header))}
+    .watch-main,main > aside{height:100%;min-height:0;overflow-y:auto;overscroll-behavior-y:contain}
+  }
+  @media(min-width:1440px){:root{--rail:500px}aside{padding:24px}}
+  @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:clamp(var(--player-min),56.25vw,calc(100dvh - var(--header) - 218px))}}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" aria-label="返回首页"><img class="logo" src="Assets/logo-white.png" alt="bilibili"></a>
+  <form action="./" role="search"><input name="q" type="search" aria-label="搜索视频" placeholder="搜索你感兴趣的视频" required></form>
+  <div class="top-actions">
+    <a class="icon-button" href="https://member.bilibili.com/platform/upload/video/frame" target="_blank" rel="noopener" aria-label="投稿（在新标签页打开）" title="投稿">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+    </a>
+    <a class="icon-button" href="https://account.bilibili.com/account/big" target="_blank" rel="noopener" aria-label="会员（在新标签页打开）" title="会员">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 5 4 4-7 4 7 5-4-2 12H5z"/></svg>
+    </a>
+    <a class="icon-button" href="https://member.bilibili.com/platform/home" target="_blank" rel="noopener" aria-label="创作中心（在新标签页打开）" title="创作中心">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 15v2m4-6v6m4-9v9"/></svg>
+    </a>
+    <button class="icon-button" id="notifyButton" aria-label="通知" title="通知"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg></button>
+    <button class="avatar" id="profileButton" aria-label="个人中心" title="个人中心">M</button>
+  </div>
+</header>
+<main>
+  <div class="watch-main">
+    <div class="player-shell"><div class="stage"><iframe title="哔哩哔哩视频播放器" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div></div>
+    <section class="comments" aria-labelledby="comments-title">
+      <h2 id="comments-title">评论 <small>3 · 示例评论</small></h2>
+      <article class="comment"><span class="bubble" aria-hidden="true">北</span><div><strong>北看台</strong><p>决胜局那波团战值得单独拉出来复盘，几个人进场的时机太齐了。</p><small>2 小时前 · 328 赞</small></div></article>
+      <article class="comment"><span class="bubble" aria-hidden="true">橘</span><div><strong>橘子汽水</strong><p>一路看到捧杯，那一刻真的替他们开心。</p><small>3 小时前 · 206 赞</small></div></article>
+      <article class="comment"><span class="bubble" aria-hidden="true">野</span><div><strong>野区路过</strong><p>这期把视野布置讲清楚了，回去重看比赛发现好多细节。</p><small>昨天 · 91 赞</small></div></article>
+    </section>
+  </div>
+  <aside aria-label="视频信息与推荐">
+    <div class="author">
+      <span class="bubble" aria-hidden="true">阿</span>
+      <div><strong>阿皮apiOVO</strong><br>
+        <a class="button" href="https://space.bilibili.com/64570778/">充电</a>
+        <button type="button" class="button follow" data-toggle aria-pressed="false">关注</button>
+      </div>
+    </div>
+    <h1>传奇一串四！锐评BLG全员蜕变战胜GENG！拿下超级含金量冠军！</h1>
+    <p class="meta">75,408 播放 · 545 弹幕 · 2026-11-16</p>
+    <div class="actions">
+      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">♡</span>点赞</button>
+      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">◎</span>投币</button>
+      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">☆</span>收藏</button>
+      <button type="button" id="share"><span aria-hidden="true">↗</span>分享</button>
+    </div>
+    <p class="feedback" role="status"></p>
+    <section class="recommendations" aria-labelledby="rec-title">
+      <h2 id="rec-title">推荐视频</h2>
+      <div id="related-list"></div>
+    </section>
+  </aside>
+</main>
+<script src="Assets/home-feed.js"></script>
+<script>
+  const watchColumn = document.querySelector('.watch-main');
+  const playerShell = document.querySelector('.player-shell');
+  const singleColumn = matchMedia('(max-width: 679px)');
+  const watchHeader = document.querySelector('header');
+
+  function resizePlayerOnScroll() {
+    const scroll = singleColumn.matches ? window.scrollY - watchHeader.offsetHeight : watchColumn.scrollTop;
+    playerShell.style.setProperty('--player-scroll', Math.max(0, scroll) + 'px');
+  }
+
+  watchColumn.addEventListener('scroll', resizePlayerOnScroll, {passive: true});
+  window.addEventListener('scroll', resizePlayerOnScroll, {passive: true});
+  singleColumn.addEventListener('change', resizePlayerOnScroll);
+  resizePlayerOnScroll();
+
+  const requestedId = new URLSearchParams(location.search).get('v');
+  const selectedVideo = homeFeed.find(video => videoIdFromCover(video.cover) === requestedId);
+  const activeVideoId = selectedVideo ? requestedId : 'BV1J9sF6YEdQ';
+  const playerUrl = new URL('https://player.bilibili.com/player.html');
+  playerUrl.search = new URLSearchParams({
+    bvid: activeVideoId, page: '1', autoplay: '1', muted: '1'
+  });
+  document.querySelector('.stage iframe').src = playerUrl.href;
+
+  if (selectedVideo) {
+    document.querySelector('.author strong').textContent = selectedVideo.author;
+    document.querySelector('.author .bubble').textContent = Array.from(selectedVideo.author)[0];
+    document.querySelector('.author a.button').href = 'https://www.bilibili.com/video/' + requestedId + '/';
+    document.querySelector('h1').textContent = selectedVideo.title;
+    document.title = selectedVideo.title;
+    document.querySelector('.meta').textContent = [selectedVideo.views + '播放', selectedVideo.date].join(' · ');
+
+    const exampleComments = ['这段值得回看，第一次看漏了好多细节。', '节奏很舒服，一口气看完了。', '先收藏，晚点再看一遍。'];
+    document.querySelectorAll('.comment p').forEach((comment, index) => {
+      comment.textContent = exampleComments[index];
+    });
+  }
+
+  const relatedList = document.querySelector('#related-list');
+  const recommendations = homeFeed
+    .map(video => ({video, bvid: videoIdFromCover(video.cover)}))
+    .filter(({bvid}) => bvid && bvid !== activeVideoId)
+    .slice(0, 20);
+
+  for (const {video, bvid} of recommendations) {
+    const link = document.createElement('a');
+    link.className = 'related';
+    link.href = 'watch.html?v=' + bvid;
+    const cover = document.createElement('img');
+    cover.src = video.cover;
+    cover.alt = '';
+    cover.loading = 'lazy';
+    const info = document.createElement('span');
+    const title = document.createElement('strong');
+    title.textContent = video.title;
+    const meta = document.createElement('small');
+    meta.append(video.author, document.createElement('br'), video.views + '播放');
+    info.append(title, meta);
+    link.append(cover, info);
+    relatedList.append(link);
+  }
+
+  const commentSection = document.querySelector('.comments');
+  const sampleComments = Array.from(commentSection.querySelectorAll('.comment'));
+  const extraCopies = 17;
+  const commentCopies = document.createDocumentFragment();
+  for (let copy = 0; copy < extraCopies; copy++) {
+    for (const comment of sampleComments) commentCopies.append(comment.cloneNode(true));
+  }
+  commentSection.append(commentCopies);
+  document.querySelector('#comments-title small').textContent =
+    `${sampleComments.length * (extraCopies + 1)} · 示例评论`;
+
+  document.querySelector('#notifyButton').onclick = () => alert('暂时没有新消息');
+  document.querySelector('#profileButton').onclick = () => alert('个人中心即将开放');
+
+  const feedback = document.querySelector('.feedback');
+  for (const button of document.querySelectorAll('[data-toggle]')) {
+    button.addEventListener('click', () => {
+      const active = button.getAttribute('aria-pressed') === 'false';
+      button.setAttribute('aria-pressed', active);
+      if (button.classList.contains('follow')) button.textContent = active ? '已关注' : '关注';
+      feedback.textContent = active ? '已更新预览状态' : '';
+    });
+  }
+  document.querySelector('#share').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      feedback.textContent = '已复制播放页链接';
+    } catch {
+      feedback.textContent = '可在地址栏复制播放页链接';
+    }
+  });
+</script>
+</body>
+</html>

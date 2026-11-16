@@ -19,7 +19,7 @@
     }
     .category:hover{background:#e5e5e8}
     .category.active{background:var(--pink);color:#fff}
-    .video-grid{display:grid;gap:28px 18px;margin-top:24px}.card{min-width:0}.card-media{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;border-radius:12px;overflow:hidden;background:#e1e8e9;text-align:left}.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.card-media:hover img{transform:scale(1.055)}.card-media::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.55))}.duration{position:absolute;right:9px;bottom:9px;z-index:1;color:#fff;background:#101a2288;border-radius:4px;padding:3px 5px;font-size:11px;font-variant-numeric:tabular-nums}.views{position:absolute;left:10px;bottom:11px;z-index:1;display:flex;align-items:center;gap:5px;color:#fff;font-size:11px}.views svg{width:14px;height:14px;fill:#fff;stroke:none}.card-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin:12px 1px 11px;font-size:14px;font-weight:650;line-height:1.48;min-height:41px}.card-meta{display:flex;align-items:center;gap:7px;margin:0 1px;font-size:11px;color:#9ba8ae}.card-meta .separator{margin:0 1px;color:#c4cdd0}.empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:#7d8a91;background:#fff;border:1px dashed var(--line);border-radius:16px}.empty strong{display:block;color:var(--ink);margin-bottom:7px}
+    .video-grid{display:grid;gap:28px 18px;margin-top:24px}.card{min-width:0;cursor:pointer}.card-media{position:relative;display:block;width:100%;aspect-ratio:16/9;border:0;padding:0;overflow:hidden;background:#e1e8e9;text-align:left}.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.card-media:hover img{transform:scale(1.055)}.card-media::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.55))}.duration{position:absolute;right:9px;bottom:9px;z-index:1;color:#fff;background:#101a2288;border-radius:4px;padding:3px 5px;font-size:11px;font-variant-numeric:tabular-nums}.views{position:absolute;left:10px;bottom:11px;z-index:1;display:flex;align-items:center;gap:5px;color:#fff;font-size:11px}.views svg{width:14px;height:14px;fill:#fff;stroke:none}.card-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin:12px 1px 11px;font-size:14px;font-weight:650;line-height:1.48;min-height:41px}.card-meta{display:flex;align-items:center;gap:7px;margin:0 1px;font-size:11px;color:#9ba8ae}.card-meta .separator{margin:0 1px;color:#c4cdd0}.empty{grid-column:1/-1;padding:60px 20px;text-align:center;color:#7d8a91;background:#fff;border:1px dashed var(--line);border-radius:16px}.empty strong{display:block;color:var(--ink);margin-bottom:7px}
     .card{position:relative;isolation:isolate}
     .card::before{content:"";position:absolute;z-index:-1;inset:-9px;border-radius:19px;background:var(--card-tint);opacity:0;transform:scale(.985);transition:opacity .2s ease,transform .2s ease;pointer-events:none}
     .card:hover,.card:focus-within{z-index:1}
@@ -77,7 +77,7 @@
     @media(prefers-reduced-motion:reduce){
       .masthead,.masthead .search,.masthead .icon-button{transition:none}
     }
-    .masthead .search{background:#fff;border-color:#e2e6eb;box-shadow:none}
+    .masthead .search{background:#fff;border-color:#b5bec8;box-shadow:none}
     .masthead .icon-button{color:#98a3ad;background:transparent}
     .masthead .icon-button:hover{background:#f4f6f8}
     .record-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
@@ -92,6 +92,32 @@
       gap:28px var(--column-gap);
       grid-template-columns:repeat(auto-fill,minmax(min(100%,max(var(--min-card-width),calc((100% - 3 * var(--column-gap)) / 4))),1fr));
     }
+    .card-media,.feed-banner{border-radius:12px}
+    .feed-banner{position:relative;grid-column:1 / -1;overflow:hidden;isolation:isolate}
+    .feed-banner img{display:block;width:100%;height:auto}
+    .banner-confetti{position:absolute;inset:0;pointer-events:none}
+    .banner-confetti i{
+      position:absolute;left:var(--x);top:-8px;width:var(--size);height:calc(var(--size) * .55);
+      border-radius:1px;
+      background:linear-gradient(125deg,#9d6118 0%,#eab337 24%,#fff1a5 43%,#fffce2 50%,#f4ca59 57%,#b77b20 82%,#f6d36c 100%);
+      animation:banner-confetti-fall var(--duration) var(--delay) linear infinite;
+    }
+    .banner-confetti i::after{
+      content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;
+      background:linear-gradient(115deg,#fff4b3,#fff 45%,#ffe78b 75%);
+      animation:banner-confetti-glint var(--duration) var(--delay) linear infinite;
+    }
+    @keyframes banner-confetti-glint{
+      0%,21%,34%,61%,74%,100%{opacity:0}
+      27%,67%{opacity:.95}
+    }
+    @keyframes banner-confetti-fall{
+      0%{top:-8px;opacity:0;transform:rotate(var(--angle)) rotateY(0deg)}
+      15%{opacity:.85}
+      75%{opacity:.85}
+      100%{top:100%;opacity:0;transform:translateX(var(--drift)) rotate(calc(var(--angle) + var(--spin))) rotateY(540deg)}
+    }
+    @media(prefers-reduced-motion:reduce){.banner-confetti{display:none}}
     .masthead-inner{
       grid-template:auto / minmax(0,1fr) minmax(0,525px) minmax(max-content,1fr);
       align-items:center;
@@ -165,7 +191,7 @@
 <body>
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></symbol><symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol><symbol id="i-tv" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m9 9 6 3-6 3z"/></symbol><symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4m-4 8h4m10-8h4m-4 8h4"/></symbol><symbol id="i-live" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="3"/><path d="m10 9 5 3-5 3zM2 9v6m20-6v6"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></symbol><symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5 9a8 8 0 0 1 14-2l1 5M4 12l1 5a8 8 0 0 0 14-2"/></symbol><symbol id="i-history" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2.5 7M3 5v6h6m3-4v5l3 2"/></symbol><symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 4h12v16l-6-4-6 4z"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-play" viewBox="0 0 24 24"><path d="m7 4 14 8-14 8z"/></symbol></svg>
   <aside class="sidebar" id="sidebar" aria-label="一级导航">
-    <a class="brand" href="#home" id="brandLink" aria-label="返回首页"><img class="brand-logo" src="Assets/logo-white.png?v=20261112-autumn" alt="bilibili" /></a>
+    <a class="brand" href="#home" id="brandLink" aria-label="返回首页"><img class="brand-logo" src="Assets/logo-white.png" alt="bilibili" /></a>
     <div class="sidebar-links">
       <nav class="primary-nav" id="primaryNav" aria-label="一级导航"></nav>
       <nav class="primary-nav record-nav" id="recordNav" aria-label="个人记录"></nav>
@@ -202,6 +228,7 @@
     <button class="record-action" id="favoriteButton" type="button" aria-pressed="false">收藏</button>
     <button class="record-action" id="watchLaterButton" type="button" aria-pressed="false">稍后再看</button>
   </div><div class="modal-footer"><span>视频播放资源可在接入内容服务后启用</span><button class="close-modal" id="closeModal">关闭</button></div></div></div></div>
+  <script src="Assets/home-feed.js"></script>
   <script>
     const pages=[['首页','i-home'],['动态','i-activity'],['追番','i-tv'],['影视','i-film'],['直播','i-live']];
     const categories=['推荐','生活','美食','游戏','音乐','知识','娱乐','鬼畜','旅行','科技','运动','时尚','萌宠','纪录片'];
@@ -220,58 +247,6 @@
       {title:'想念海的时候，就来看一会儿浪',author:'浪花放送',category:'纪录片',views:'15.1万',duration:'18:08',date:'6天前',image:12}
     ];
     const personalPages = [['历史记录','i-history'],['收藏夹','i-bookmark'],['稍后再看','i-clock']];
-    const homeFeed = [
-      {"title": "《崩坏：星穹铁道》动画短片：「月下的欢快葬礼」", "author": "崩坏星穹铁道", "category": "游戏", "views": "106.8万", "duration": "25:00", "date": "2026-11-11", "image": 117590970140555, "cover": "Assets/popular/BV1gHWg6GEqj.jpg"},
-      {"title": "黄仁勋：我想挑战一下我的软肋", "author": "浅澄月", "category": "鬼畜", "views": "121.3万", "duration": "02:06", "date": "2026-11-10", "image": 117591792161198, "cover": "Assets/popular/BV1tKWu6YEka.jpg"},
-      {"title": "【BilibiliToy】这个是一个普普通通的人机验证，真的", "author": "魔魔园", "category": "娱乐", "views": "24.1万", "duration": "02:03", "date": "2026-11-10", "image": 117592211659465, "cover": "Assets/popular/BV16xW36tEj5.jpg"},
-      {"title": "财神窦占龙 第15集 寻参【8月国创】", "author": "哔哩哔哩国创", "category": "娱乐", "views": "22.3万", "duration": "23:21", "date": "2026-11-08", "image": 117568488672719, "cover": "Assets/popular/BV1yt4B6QEKG.jpg"},
-      {"title": "坟围感十足的八种植物，总有一款适合你！", "author": "-阿申呀", "category": "娱乐", "views": "234.3万", "duration": "02:03", "date": "2026-11-05", "image": 117563036144994, "cover": "Assets/popular/BV1uT486NEEu.jpg"},
-      {"title": "BLG 赛事语音 | 击败心魔，我们去决赛吧！", "author": "BLG电子竞技俱乐部", "category": "游戏", "views": "14.1万", "duration": "10:55", "date": "2026-11-11", "image": 117596288453018, "cover": "Assets/popular/BV1npW16tE1e.jpg"},
-      {"title": "寰宇频道特别栏目 | 远行", "author": "鸣潮先行公约", "category": "游戏", "views": "23.2万", "duration": "02:52", "date": "2026-11-11", "image": 117591808936602, "cover": "Assets/popular/BV1W3Wu6FEmu.jpg"},
-      {"title": "传奇历史人物志——麦克斯韦", "author": "抽象历史人物志", "category": "知识", "views": "72.5万", "duration": "02:57", "date": "2026-11-10", "image": 117591959931159, "cover": "Assets/popular/BV1TUW36kE2z.jpg"},
-      {"title": "辽阔的土地生不出狭隘的爱", "author": "小王不爱干正事", "category": "娱乐", "views": "68.3万", "duration": "00:42", "date": "2026-11-10", "image": 117591976774105, "cover": "Assets/popular/BV1hrW367Emp.jpg"},
-      {"title": "【剧情】黑白清道夫（2026）01【李铭顺 / 娄峻硕】", "author": "迷影社", "category": "娱乐", "views": "26.0万", "duration": "44:10", "date": "2026-11-06", "image": 117516261132984, "cover": "Assets/popular/BV16sx56kEsL.jpg"},
-      {"title": "旧衣服改造波士顿包", "author": "水木针线姐", "category": "生活", "views": "32.9万", "duration": "03:10", "date": "2026-11-09", "image": 117585920133070, "cover": "Assets/popular/BV1EZWt66EjR.jpg"},
-      {"title": "这是我等待了一生的巨浪", "author": "无蓝矢", "category": "游戏", "views": "102.9万", "duration": "01:54", "date": "2026-11-10", "image": 117588302500334, "cover": "Assets/popular/BV1ziWP6qENy.jpg"},
-      {"title": "【民科史】可口可乐为什么要退出\"避孕\"市场？", "author": "BoyJump老登", "category": "知识", "views": "18.7万", "duration": "14:12", "date": "2026-11-10", "image": 117591439840726, "cover": "Assets/popular/BV1WVWu6ZE2U.jpg"},
-      {"title": "地牢酒馆-33《日常招待与地下湖》", "author": "粘土工厂", "category": "游戏", "views": "147.7万", "duration": "03:01", "date": "2026-11-10", "image": 117591842488525, "cover": "Assets/popular/BV1bwWu6KEaS.jpg"},
-      {"title": "灭霸宿舍卫生不合格，被叫回去重新值日", "author": "只因寄太美哦", "category": "娱乐", "views": "106.3万", "duration": "02:25", "date": "2026-11-10", "image": 117587379755645, "cover": "Assets/popular/BV1ciWb6yEGv.jpg"},
-      {"title": "顺直大改造S2EP1—长发男与短发女的恨海情天", "author": "antoxic", "category": "生活", "views": "66.9万", "duration": "15:15", "date": "2026-11-09", "image": 117585718811341, "cover": "Assets/popular/BV1gjWb6tE8q.jpg"},
-      {"title": "养了大肥鱼以后，家里的米就没够吃过", "author": "东洋雪莲", "category": "音乐", "views": "110.4万", "duration": "02:07", "date": "2026-11-10", "image": 117590869415559, "cover": "Assets/popular/BV1dGWg67Evr.jpg"},
-      {"title": "《人皇步》", "author": "伤心欲茄222", "category": "生活", "views": "254.0万", "duration": "01:37", "date": "2026-11-10", "image": 117586104683131, "cover": "Assets/popular/BV1BjWt6BEJd.jpg"},
-      {"title": "这都能还原！！？【MC阿哈篇】", "author": "FoFTG", "category": "游戏", "views": "22.4万", "duration": "03:20", "date": "2026-11-11", "image": 117595701249808, "cover": "Assets/popular/BV1MdWL6WEiB.jpg"},
-      {"title": "12岁虚报17岁当红军，91年后他是最后一位开国将军｜王扶之（1923—2026）", "author": "衔星渡鸦", "category": "游戏", "views": "37.5万", "duration": "01:58", "date": "2026-11-10", "image": 117586876435463, "cover": "Assets/popular/BV1zjW86jEXp.jpg"},
-      {"title": "⚡️黄仁勋 | Trouble Maker × 回家的诱惑⚡️英伟达年会现场双黄演绎崩老头【AI MV大赛】", "author": "抽乐个大象", "category": "音乐", "views": "118.3万", "duration": "03:55", "date": "2026-11-10", "image": 117590533871837, "cover": "Assets/popular/BV1PDWT6RE3F.jpg"},
-      {"title": "背着180斤现金攀爬，爬上来就带走384000美金！💰", "author": "野兽先生MrBeast", "category": "生活", "views": "86.8万", "duration": "01:35", "date": "2026-11-10", "image": 117591490301274, "cover": "Assets/popular/BV1wLWu6tE5N.jpg"},
-      {"title": "今天画画，差点没走出来！", "author": "爱画画的子衿", "category": "生活", "views": "29.0万", "duration": "03:57", "date": "2026-11-10", "image": 117590248655441, "cover": "Assets/popular/BV1X3WM6gEUZ.jpg"},
-      {"title": "中国居然有原生食虫植物？", "author": "龙女之声", "category": "知识", "views": "42.3万", "duration": "12:33", "date": "2026-11-10", "image": 117591355951816, "cover": "Assets/popular/BV1PXWu6wEp6.jpg"},
-      {"title": "热烈欢迎谢苗！听听新一代“功夫巨星”对自己的生活和工作什么评价？（有一说一，苗哥的夫人何彦霓女士做面包真的太好吃了！太好吃啦！！！", "author": "papi酱", "category": "娱乐", "views": "19.1万", "duration": "37:39", "date": "2026-11-11", "image": 117591355954491, "cover": "Assets/popular/BV1NXWu6wE9P.jpg"},
-      {"title": "【1酱赛评四强篇·上】BLG突破LPL对S赛T1不胜历史！几代人的夙愿！14年的等待！终于在S赛战胜T1！爽爽爽爽爽！！！！", "author": "你是想气死1酱么", "category": "游戏", "views": "90.4万", "duration": "14:27", "date": "2026-11-10", "image": 117592664643195, "cover": "Assets/popular/BV1QAW36VEWg.jpg"},
-      {"title": "动态视频｜打败许昕，获得iPhone Duo！", "author": "飓多多StormCrew", "category": "生活", "views": "100.8万", "duration": "03:02", "date": "2026-11-10", "image": 117590600978432, "cover": "Assets/popular/BV1JnWT6LEVN.jpg"},
-      {"title": "黑客勒索，政企全沦陷，软盘仙人“日本”正在被黑客集中爆破？", "author": "星辰趣味屋", "category": "知识", "views": "52.4万", "duration": "17:22", "date": "2026-11-10", "image": 117589846006285, "cover": "Assets/popular/BV1UWWM6wEEz.jpg"},
-      {"title": "千 万 别 开 911 去 川 西 ！", "author": "极速拍档", "category": "生活", "views": "15.5万", "duration": "25:43", "date": "2026-11-11", "image": 117592933009198, "cover": "Assets/popular/BV1kBWg68Ejf.jpg"},
-      {"title": "每 天 亿 遍 🔥 防 止 早 恋！", "author": "兔总裁s", "category": "娱乐", "views": "145.1万", "duration": "01:13", "date": "2026-11-10", "image": 117590131219163, "cover": "Assets/popular/BV1ZAWM61Evb.jpg"},
-      {"title": "BLG凭什么打破T1的不败神话？万字复盘BLG战胜T1挺进决赛！", "author": "分析师蓝宝石", "category": "游戏", "views": "24.7万", "duration": "23:33", "date": "2026-11-11", "image": 117595701250009, "cover": "Assets/popular/BV1MdWL6WEYg.jpg"},
-      {"title": "Faker了一辈子的蹲方魂 终于…", "author": "是大洋芋", "category": "娱乐", "views": "208.1万", "duration": "01:41", "date": "2026-11-09", "image": 117586960321424, "cover": "Assets/popular/BV1aYW86vEte.jpg"},
-      {"title": "最狠一期，后背发凉！这剧的尺度真的挺大“已经收着拍了”！万字细嗦《谷雨》第五期 包含；剧情、细节、镜头语言、人性解析等", "author": "不善言辞的秃秃", "category": "娱乐", "views": "38.1万", "duration": "27:18", "date": "2026-11-10", "image": 117591775447694, "cover": "Assets/popular/BV11MWu6wEky.jpg"},
-      {"title": "射手是最不吃经济的位置，因为前期拿了经济也没用", "author": "磊哥游戏", "category": "游戏", "views": "28.5万", "duration": "03:11", "date": "2026-11-11", "image": 117591020474715, "cover": "Assets/popular/BV13pWg6rEj9.jpg"},
-      {"title": "黄仁勋带她吃的饭店，我带你们去看看", "author": "王师傅の日记", "category": "生活", "views": "110.7万", "duration": "22:19", "date": "2026-11-10", "image": 117589896469352, "cover": "Assets/popular/BV1JCWM6JEFU.jpg"},
-      {"title": "跨越3500公里探秘亚洲第一商场！居然在这个国家？", "author": "-LKs-", "category": "娱乐", "views": "16.2万", "duration": "24:05", "date": "2026-11-11", "image": 117592362584890, "cover": "Assets/popular/BV1ViW36DErN.jpg"},
-      {"title": "特厨探店|探店这么多年，没想到还是会震惊！", "author": "特厨隋坡", "category": "美食", "views": "122.3万", "duration": "02:44", "date": "2026-11-10", "image": 117586843012148, "cover": "Assets/popular/BV1LxW863EaB.jpg"},
-      {"title": "何同学工作室长啥样？", "author": "老师好我叫何同学", "category": "科技", "views": "38.3万", "duration": "06:01", "date": "2026-11-10", "image": 117592094150834, "cover": "Assets/popular/BV1AcWG6eE1V.jpg"},
-      {"title": "《我的猫猫比我富》第三集", "author": "小弹簧晓丹", "category": "娱乐", "views": "74.4万", "duration": "07:00", "date": "2026-11-09", "image": 117581423837354, "cover": "Assets/popular/BV1JCWH6dEq2.jpg"},
-      {"title": "《鸣潮》共鸣者「莉莉」PV |  忘记恐惧", "author": "鸣潮", "category": "游戏", "views": "143.8万", "duration": "17:06", "date": "2026-11-10", "image": 117586356409971, "cover": "Assets/popular/BV1VmW46bEfC.jpg"},
-      {"title": "来东京，拍到了些怪东西", "author": "百万剪辑狮", "category": "旅行", "views": "115.3万", "duration": "01:14", "date": "2026-11-09", "image": 117584292745217, "cover": "Assets/popular/BV179WW6oESh.jpg"},
-      {"title": "THANK YOU Smoggy", "author": "EDG电子竞技俱乐部", "category": "游戏", "views": "111.3万", "duration": "05:38", "date": "2026-11-10", "image": 117590701707480, "cover": "Assets/popular/BV1v8WT6uEJH.jpg"},
-      {"title": "【游戏众生相】传奇之战：我到底应该如何跟你讲述这个故事呢....", "author": "尚在天国EX", "category": "游戏", "views": "38.6万", "duration": "61:05", "date": "2026-11-10", "image": 117589879558256, "cover": "Assets/popular/BV1m4WM6FEJN.jpg"},
-      {"title": "就是等到你来捡咯", "author": "薪儿姐师尊", "category": "娱乐", "views": "231.0万", "duration": "03:09", "date": "2026-11-08", "image": 117578773039728, "cover": "Assets/popular/BV1i64s6KEQ3.jpg"},
-      {"title": "当杀手和律师都以为对方是同行", "author": "小草律师呀", "category": "生活", "views": "221.7万", "duration": "01:45", "date": "2026-11-08", "image": 117579846781896, "cover": "Assets/popular/BV1eNW76KEdJ.jpg"},
-      {"title": "当队友拿不同击杀数时我的态度", "author": "FLC_NiKo", "category": "游戏", "views": "150.5万", "duration": "00:24", "date": "2026-11-10", "image": 117591557281381, "cover": "Assets/popular/BV15eWu65Ee1.jpg"},
-      {"title": "【自制LPL首胜T1宣传片】这座山，这条河，我们走了多久？", "author": "拂水房-房东", "category": "生活", "views": "36.0万", "duration": "08:30", "date": "2026-11-09", "image": 117586473913321, "cover": "Assets/popular/BV1xcWt6SEhQ.jpg"},
-      {"title": "【手残联萌】12周年特别节目", "author": "裂独舞", "category": "游戏", "views": "27.7万", "duration": "100:48", "date": "2026-11-11", "image": 117591876044354, "cover": "Assets/popular/BV14NWu6PEfo.jpg"},
-      {"title": "如何盗走《蒙娜丽莎》？【硬核狠人92】", "author": "小约翰可汗", "category": "知识", "views": "148.2万", "duration": "39:45", "date": "2026-11-10", "image": 117587027433065, "cover": "Assets/popular/BV1i4W86zEUS.jpg"},
-      {"title": "怎么会有这么好吃的家常菜！烧白太香了！", "author": "干饭三健客", "category": "美食", "views": "34.8万", "duration": "08:27", "date": "2026-11-10", "image": 117591305623649, "cover": "Assets/popular/BV1KDWu6YEVF.jpg"}
-    ];
     const videos = [...homeFeed, ...sampleVideos];
     const coverFor = video => video.cover ?? `Assets/cover-${String(video.image).padStart(2,'0')}.jpg`;
     const escapeHTML = value => String(value).replace(/[&<>"\']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
@@ -400,7 +375,29 @@
     function getFiltered(){
       if (page in records) return records[page].map(id => videos.find(video => video.image === id));
       return homeFeed.filter(v=>(category==='推荐'||v.category===category)&&(!query||`${v.title} ${v.author} ${v.category}`.toLowerCase().includes(query)))}
-    function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card" style="--card-tint:hsl(${Math.round((v.image*137.508+18)%360)} 24% 92%)"><button class="card-media" data-video="${v.image}" aria-label="查看${escapeHTML(v.title)}"><img src="${coverFor(v)}" alt="${escapeHTML(v.category)}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${escapeHTML(v.title)}</h4><div class="card-meta"><span>${escapeHTML(v.author)}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;document.querySelectorAll('[data-video]').forEach(b=>b.onclick=()=>openVideo(videos.find(v=>v.image===Number(b.dataset.video))))}
+    function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card" style="--card-tint:hsl(${Math.round((v.image*137.508+18)%360)} 24% 92%)"><button class="card-media" data-video="${v.image}" aria-label="查看${escapeHTML(v.title)}"><img src="${coverFor(v)}" alt="${escapeHTML(v.category)}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${escapeHTML(v.title)}</h4><div class="card-meta"><span>${escapeHTML(v.author)}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;
+      if (page === '首页' && items.length && !query) {
+        const particleCount = 150;
+        const confetti = Array.from({length: particleCount}, (_, index) => {
+          const x = (index + .5) * 100 / particleCount;
+          const duration = 2 + (index % 9) * .25;
+          const delay = -((index * 13) % 19) * duration / 19;
+          const size = 5 + index % 6;
+          const drift = Math.round((Math.random() * 2 - 1) * 36);
+          const angle = Math.floor(Math.random() * 360);
+          const spin = (Math.random() < .5 ? -1 : 1) * (120 + Math.round(Math.random() * 240));
+          return `<i style="--x:${x}%;--duration:${duration}s;--delay:${delay}s;--size:${size}px;--drift:${drift}px;--angle:${angle}deg;--spin:${spin}deg"></i>`;
+        }).join('');
+        $('videoGrid').insertAdjacentHTML('afterbegin', `
+          <a class="feed-banner" href="watch.html" aria-label="观看 BLG 夺冠复盘">
+            <img src="Assets/feed-banner.png" width="2560" height="240" alt="恭喜 BLG 获得 2026 英雄联盟全球总决赛冠军">
+            <div class="banner-confetti" aria-hidden="true">${confetti}</div>
+          </a>`);
+      }
+      $('videoGrid').querySelectorAll('.card').forEach(card => {
+        const button = card.querySelector('[data-video]');
+        card.onclick = () => openVideo(videos.find(video => video.image === Number(button.dataset.video)));
+      });}
     function updatePage() {
       const isHome = page === '首页';
       renderNav();
@@ -428,6 +425,11 @@
       currentVideo = video;
       records['历史记录'] = [video.image, ...records['历史记录'].filter(id => id !== video.image)];
       saveRecords();
+      const bvid = videoIdFromCover(video.cover);
+      if (bvid) {
+        location.href = 'watch.html?v=' + bvid;
+        return;
+      }
       $('modalImage').src = coverFor(video);
       $('modalImage').alt = video.title;
       $('modalTitle').textContent = video.title;
@@ -459,6 +461,11 @@
     $('searchInput').oninput=e=>{query=e.target.value.trim().toLowerCase();if(page!=='首页'){page='首页';updatePage()}else renderFeed()};
     $('closeModal').onclick=closeVideo;$('videoModal').onclick=e=>{if(e.target===$('videoModal'))closeVideo()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeVideo()});
     $('notifyButton').onclick=()=>alert('暂时没有新消息');$('profileButton').onclick=()=>alert('个人中心即将开放');
+    const initialSearch = new URLSearchParams(location.search).get('q');
+    if (initialSearch) {
+      $('searchInput').value = initialSearch;
+      query = initialSearch.trim().toLowerCase();
+    }
     updatePage();
   </script>
 </body>
