@@ -32,7 +32,6 @@
     position:fixed;z-index:10;left:var(--mini-x,12px);top:var(--mini-y,clamp(28px,calc(var(--header) + 40px),calc(100dvh - min(216px, (100dvh - 52px)))));
     width:min(384px,calc(100vw - 24px),calc((100dvh - 52px) * 16 / 9));
     height:auto;aspect-ratio:16/9;border-radius:0 0 8px 8px;
-    box-shadow:0 6px 24px #0005;
   }
   .stage.floating .drag-handle{
     display:block;position:absolute;bottom:100%;left:0;width:100%;height:28px;
@@ -74,6 +73,54 @@
   }
   @media(min-width:1440px){:root{--rail:500px}aside{padding:24px}}
   @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:min(56.25vw,max(0px,calc(100dvh - var(--header) - 218px)))}}
+  .layout-select{font:inherit;font-size:12px;width:66px;height:30px;border:1px solid var(--line);border-radius:7px;background:#fff;color:inherit}
+  .video-details{display:flex;flex-direction:column}
+  .video-summary,.summary-content,.metadata,.interaction-row{display:contents}
+  .comments-right .summary-content{display:block}
+  .video-details .author{order:-1}
+  .comments-right .interaction-row .author{order:0}
+  .comments-right{--watch-width:calc(100vw - var(--rail) - 16px)}
+  .comments-right .player-shell{--player-height:min(calc(var(--watch-width) * .5625),max(0px,calc(100dvh - var(--header) - 140px)))}
+  .comments-right .video-details{container-type:inline-size;padding:0 clamp(12px,2vw,24px) 24px}
+  .comments-right .watch-main{
+    --sticky-top:0px;
+    --summary-gap:clamp(12px,2vw,24px);
+    --summary-video-width:min(240px,calc(var(--watch-width) * .28),calc((var(--summary-height) - 24px) * 16 / 9));
+  }
+  .comments-right .video-summary{
+    display:block;position:sticky;top:var(--sticky-top);z-index:2;
+    padding-block:18px 12px;background:#fff;
+  }
+  .comments-right .watch-main:has(.stage.floating) .video-summary{
+    padding-left:calc(var(--summary-video-width) + var(--summary-gap));
+    height:var(--summary-height);overflow:auto;
+  }
+  .comments-right .stage.floating{
+    left:var(--summary-gap);top:calc(var(--header) + 12px);
+    width:var(--summary-video-width);max-width:none;z-index:3;border-radius:8px;
+  }
+  .comments-right .stage.floating .drag-handle{display:none}
+  @media(max-width:679px){.comments-right .stage.floating{top:12px}}
+  .comments-right .metadata{display:flex;align-items:center;gap:18px;overflow-x:auto}
+  .comments-right .metadata h1{flex:1;min-width:2em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .comments-right .metadata .meta{flex:none;white-space:nowrap}
+  .comments-right .meta{margin:0}
+  .comments-right .interaction-row{display:flex;align-items:center;justify-content:space-between;gap:12px 18px;overflow-x:auto;margin-top:12px}
+  .comments-right .author,.comments-right .actions{flex:none;margin:0}
+  .comments-right .actions{grid-template-columns:repeat(4,auto)}
+  .comments-right .feedback:empty{display:none}
+  .comments-right #related-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:12px}
+  .comments-right .related{display:flex;flex-direction:column;margin:0}
+  .comments-right aside .comments{padding:0}
+  @container (width < 600px){.comments-right #related-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:679px){.comments-right{--watch-width:100vw}}
+  @media(max-width:380px){
+    header{padding-inline:8px;gap:6px}
+    .logo{width:46px}
+    .layout-select{width:56px}
+    .top-actions{gap:2px}
+    form input{min-width:0;padding-inline:5px}
+  }
 </style>
 </head>
 <body>
@@ -81,6 +128,10 @@
   <a href="index.html" aria-label="返回首页"><img class="logo" src="Assets/logo-white.png" alt="bilibili"></a>
   <form action="./" role="search"><input name="q" type="search" aria-label="搜索视频" placeholder="搜索你感兴趣的视频" required></form>
   <div class="top-actions">
+    <select class="layout-select" aria-label="播放页布局" title="播放页布局">
+      <option value="bottom">评论在下</option>
+      <option value="right">评论在右</option>
+    </select>
     <a class="icon-button" href="https://member.bilibili.com/platform/upload/video/frame" target="_blank" rel="noopener" aria-label="投稿（在新标签页打开）" title="投稿">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
     </a>
@@ -105,6 +156,14 @@
     </section>
   </div>
   <aside aria-label="视频信息与推荐">
+    <div class="video-details">
+    <div class="video-summary">
+    <div class="summary-content">
+    <div class="metadata">
+    <h1>传奇一串四！锐评BLG全员蜕变战胜GENG！拿下超级含金量冠军！</h1>
+    <p class="meta">75,408 播放 · 545 弹幕 · 2026-11-16</p>
+    </div>
+    <div class="interaction-row">
     <div class="author">
       <span class="bubble" aria-hidden="true">阿</span>
       <div><strong>阿皮apiOVO</strong><br>
@@ -112,19 +171,21 @@
         <button type="button" class="button follow" data-toggle aria-pressed="false">关注</button>
       </div>
     </div>
-    <h1>传奇一串四！锐评BLG全员蜕变战胜GENG！拿下超级含金量冠军！</h1>
-    <p class="meta">75,408 播放 · 545 弹幕 · 2026-11-16</p>
     <div class="actions">
       <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">♡</span>点赞</button>
       <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">◎</span>投币</button>
       <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">☆</span>收藏</button>
       <button type="button" id="share"><span aria-hidden="true">↗</span>分享</button>
     </div>
+    </div>
     <p class="feedback" role="status"></p>
+    </div>
+    </div>
     <section class="recommendations" aria-labelledby="rec-title">
       <h2 id="rec-title">推荐视频</h2>
       <div id="related-list"></div>
     </section>
+    </div>
   </aside>
 </main>
 <script src="Assets/home-feed.js"></script>
@@ -133,18 +194,38 @@
   const playerShell = document.querySelector('.player-shell');
   const stage = playerShell.querySelector('.stage');
   const dragHandle = stage.querySelector('.drag-handle');
+  const videoSummary = document.querySelector('.video-summary');
+  const summaryContent = videoSummary.querySelector('.summary-content');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let summaryAnimation;
   const singleColumn = matchMedia('(max-width: 679px)');
 
   function syncMiniPlayer() {
     const visibleTop = singleColumn.matches ? 0 : watchColumn.getBoundingClientRect().top;
     const wasFloating = stage.classList.contains('floating');
     const isFloating = playerShell.getBoundingClientRect().bottom <= visibleTop;
+    if (isFloating && !wasFloating && document.body.classList.contains('comments-right')) {
+      measureSummaryHeight();
+    }
     stage.classList.toggle('floating', isFloating);
+    if (wasFloating !== isFloating && document.body.classList.contains('comments-right') && !reducedMotion.matches) {
+      summaryAnimation?.cancel();
+      summaryAnimation = summaryContent.animate(
+        [{opacity: .6, transform: isFloating ? 'translateX(-10px)' : 'translateX(10px)'},
+          {opacity: 1, transform: 'translateX(0)'}],
+        {duration: 220, easing: 'ease-out'}
+      );
+    }
     if (isFloating && !wasFloating) positionMiniPlayer();
+  }
+
+  function measureSummaryHeight() {
+    watchColumn.style.setProperty('--summary-height', videoSummary.getBoundingClientRect().height + 'px');
   }
 
   let draggedPosition;
   function positionMiniPlayer() {
+    if (document.body.classList.contains('comments-right')) return;
     const columnRight = watchColumn.getBoundingClientRect().left + watchColumn.clientWidth;
     const x = draggedPosition?.x ?? columnRight - stage.offsetWidth - 12;
     const y = draggedPosition?.y ?? (singleColumn.matches ? 40 : watchColumn.getBoundingClientRect().top + 40);
@@ -187,11 +268,39 @@
   watchColumn.addEventListener('scroll', syncMiniPlayer, {passive: true});
   window.addEventListener('scroll', syncMiniPlayer, {passive: true});
   window.addEventListener('resize', () => {
+    if (document.body.classList.contains('comments-right')) stage.classList.remove('floating');
     syncMiniPlayer();
     if (stage.classList.contains('floating')) positionMiniPlayer();
   });
   window.addEventListener('pageshow', syncMiniPlayer);
   syncMiniPlayer();
+
+  const layoutSelect = document.querySelector('.layout-select');
+  const sidebar = document.querySelector('main > aside');
+  const comments = document.querySelector('.comments');
+  const details = document.querySelector('.video-details');
+  const layoutKey = 'video-redesign-watch-layout';
+
+  function applyWatchLayout() {
+    const commentsRight = layoutSelect.value === 'right';
+    stage.classList.remove('floating');
+    document.body.classList.toggle('comments-right', commentsRight);
+    watchColumn.append(commentsRight ? details : comments);
+    sidebar.append(commentsRight ? comments : details);
+    sidebar.setAttribute('aria-label', commentsRight ? '评论' : '视频信息与推荐');
+    syncMiniPlayer();
+    if (stage.classList.contains('floating')) positionMiniPlayer();
+  }
+
+  try {
+    if (localStorage.getItem(layoutKey) === 'right') layoutSelect.value = 'right';
+  } catch {}
+  applyWatchLayout();
+
+  layoutSelect.addEventListener('change', () => {
+    applyWatchLayout();
+    try { localStorage.setItem(layoutKey, layoutSelect.value); } catch {}
+  });
 
   const requestedId = new URLSearchParams(location.search).get('v');
   const selectedVideo = [...homeFeed, ...archivedFeed].find(video => videoIdFromCover(video.cover) === requestedId);
@@ -200,7 +309,7 @@
   playerUrl.search = new URLSearchParams({
     bvid: activeVideoId, page: '1', autoplay: '1', muted: '1'
   });
-  document.querySelector('.stage iframe').src = playerUrl.href;
+  stage.querySelector('iframe').src = playerUrl.href;
 
   if (selectedVideo) {
     document.querySelector('.author strong').textContent = selectedVideo.author;
