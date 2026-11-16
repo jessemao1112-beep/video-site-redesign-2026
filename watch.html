@@ -52,7 +52,8 @@
   .author{display:flex;align-items:center;gap:12px;margin-bottom:20px}
   .author .bubble{width:52px;height:52px;font-size:20px}
   .button{display:inline-block;border:0;border-radius:8px;padding:6px 13px;margin-right:4px;background:#f1f3f5}
-  .follow,.button[aria-pressed=true]{color:#8c1746;background:#ffe1ed}
+  .button[aria-pressed=true]{color:#8c1746;background:#ffe1ed}
+  .button.follow{color:#fff;background:#FB6699}
   h1{font-size:clamp(18px,1.4vw,23px);line-height:1.4}
   .meta{font-size:12px;margin:10px 0 16px}
   .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px}
@@ -109,10 +110,17 @@
   .comments-right .author,.comments-right .actions{flex:none;margin:0}
   .comments-right .actions{grid-template-columns:repeat(4,auto)}
   .comments-right .feedback:empty{display:none}
-  .comments-right #related-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:12px}
-  .comments-right .related{display:flex;flex-direction:column;margin:0}
+  .comments-right #related-list,.recommendations-left #related-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:12px}
+  .comments-right .related,.recommendations-left .related{display:flex;flex-direction:column;margin:0}
   .comments-right aside .comments{padding:0}
-  @container (width < 600px){.comments-right #related-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .recommendations-left .watch-main > .recommendations{
+    container-type:inline-size;border-top:0;margin:0;padding:18px clamp(12px,2vw,24px) 24px;
+  }
+  .recommendations-left aside .comments{padding:16px 0 0;border-top:1px solid var(--line)}
+  @media(min-width:680px){
+    .recommendations-left .stage.floating{max-width:calc(var(--rail) - 32px)}
+  }
+  @container (width < 600px){.comments-right #related-list,.recommendations-left #related-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:679px){.comments-right{--watch-width:100vw}}
   @media(max-width:380px){
     header{padding-inline:8px;gap:6px}
@@ -131,6 +139,7 @@
     <select class="layout-select" aria-label="播放页布局" title="播放页布局">
       <option value="bottom">评论在下</option>
       <option value="right">评论在右</option>
+      <option value="split">布局 3</option>
     </select>
     <a class="icon-button" href="https://member.bilibili.com/platform/upload/video/frame" target="_blank" rel="noopener" aria-label="投稿（在新标签页打开）" title="投稿">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
@@ -224,8 +233,15 @@
   }
 
   let draggedPosition;
+  let splitDraggedPosition;
   function positionMiniPlayer() {
     if (document.body.classList.contains('comments-right')) return;
+    if (document.body.classList.contains('recommendations-left')) {
+      const rightEdge = document.documentElement.clientWidth;
+      moveMiniPlayer(splitDraggedPosition?.x ?? rightEdge - stage.offsetWidth - 12,
+        splitDraggedPosition?.y ?? window.innerHeight - stage.offsetHeight - 12);
+      return;
+    }
     const columnRight = watchColumn.getBoundingClientRect().left + watchColumn.clientWidth;
     const x = draggedPosition?.x ?? columnRight - stage.offsetWidth - 12;
     const y = draggedPosition?.y ?? (singleColumn.matches ? 40 : watchColumn.getBoundingClientRect().top + 40);
@@ -255,7 +271,11 @@
   dragHandle.addEventListener('pointermove', event => {
     if (event.pointerId !== drag?.id) return;
     dragged ||= Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) >= 4;
-    if (dragged) draggedPosition = moveMiniPlayer(event.clientX + drag.x, event.clientY + drag.y);
+    if (dragged) {
+      const position = moveMiniPlayer(event.clientX + drag.x, event.clientY + drag.y);
+      if (document.body.classList.contains('recommendations-left')) splitDraggedPosition = position;
+      else draggedPosition = position;
+    }
   });
   dragHandle.addEventListener('lostpointercapture', () => { drag = undefined; });
   dragHandle.addEventListener('click', event => {
@@ -279,21 +299,32 @@
   const sidebar = document.querySelector('main > aside');
   const comments = document.querySelector('.comments');
   const details = document.querySelector('.video-details');
+  const recommendationSection = document.querySelector('.recommendations');
   const layoutKey = 'video-redesign-watch-layout';
 
   function applyWatchLayout() {
     const commentsRight = layoutSelect.value === 'right';
+    const recommendationsLeft = layoutSelect.value === 'split';
     stage.classList.remove('floating');
     document.body.classList.toggle('comments-right', commentsRight);
-    watchColumn.append(commentsRight ? details : comments);
-    sidebar.append(commentsRight ? comments : details);
-    sidebar.setAttribute('aria-label', commentsRight ? '评论' : '视频信息与推荐');
+    document.body.classList.toggle('recommendations-left', recommendationsLeft);
+    if (recommendationsLeft) {
+      watchColumn.append(recommendationSection);
+      sidebar.append(details, comments);
+    } else {
+      details.append(recommendationSection);
+      watchColumn.append(commentsRight ? details : comments);
+      sidebar.append(commentsRight ? comments : details);
+    }
+    sidebar.setAttribute('aria-label', recommendationsLeft ? '视频信息与评论' :
+      commentsRight ? '评论' : '视频信息与推荐');
     syncMiniPlayer();
     if (stage.classList.contains('floating')) positionMiniPlayer();
   }
 
   try {
-    if (localStorage.getItem(layoutKey) === 'right') layoutSelect.value = 'right';
+    const savedLayout = localStorage.getItem(layoutKey);
+    if (savedLayout === 'right' || savedLayout === 'split') layoutSelect.value = savedLayout;
   } catch {}
   applyWatchLayout();
 
