@@ -136,17 +136,28 @@
 
   function syncMiniPlayer() {
     const visibleTop = singleColumn.matches ? 0 : watchColumn.getBoundingClientRect().top;
-    stage.classList.toggle('floating', playerShell.getBoundingClientRect().bottom <= visibleTop);
+    const wasFloating = stage.classList.contains('floating');
+    const isFloating = playerShell.getBoundingClientRect().bottom <= visibleTop;
+    stage.classList.toggle('floating', isFloating);
+    if (isFloating && !wasFloating) positionMiniPlayer();
   }
 
-  let miniPosition;
+  let draggedPosition;
+  function positionMiniPlayer() {
+    const columnRight = watchColumn.getBoundingClientRect().left + watchColumn.clientWidth;
+    const x = draggedPosition?.x ?? columnRight - stage.offsetWidth - 12;
+    const y = draggedPosition?.y ?? (singleColumn.matches ? 40 : watchColumn.getBoundingClientRect().top + 40);
+    moveMiniPlayer(x, y);
+  }
+
   function moveMiniPlayer(x, y) {
-    miniPosition = {
+    const position = {
       x: Math.max(0, Math.min(x, document.documentElement.clientWidth - stage.offsetWidth)),
       y: Math.max(dragHandle.offsetHeight, Math.min(y, window.innerHeight - stage.offsetHeight))
     };
-    stage.style.setProperty('--mini-x', miniPosition.x + 'px');
-    stage.style.setProperty('--mini-y', miniPosition.y + 'px');
+    stage.style.setProperty('--mini-x', position.x + 'px');
+    stage.style.setProperty('--mini-y', position.y + 'px');
+    return position;
   }
 
   let drag;
@@ -162,7 +173,7 @@
   dragHandle.addEventListener('pointermove', event => {
     if (event.pointerId !== drag?.id) return;
     dragged ||= Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) >= 4;
-    if (dragged) moveMiniPlayer(event.clientX + drag.x, event.clientY + drag.y);
+    if (dragged) draggedPosition = moveMiniPlayer(event.clientX + drag.x, event.clientY + drag.y);
   });
   dragHandle.addEventListener('lostpointercapture', () => { drag = undefined; });
   dragHandle.addEventListener('click', event => {
@@ -176,7 +187,7 @@
   window.addEventListener('scroll', syncMiniPlayer, {passive: true});
   window.addEventListener('resize', () => {
     syncMiniPlayer();
-    if (miniPosition && stage.classList.contains('floating')) moveMiniPlayer(miniPosition.x, miniPosition.y);
+    if (stage.classList.contains('floating')) positionMiniPlayer();
   });
   window.addEventListener('pageshow', syncMiniPlayer);
   syncMiniPlayer();
