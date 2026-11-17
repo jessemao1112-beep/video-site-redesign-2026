@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#FB7299" />
   <meta name="description" content="发现喜欢的视频，分享生活里的每一帧。" />
-  <title>哔哩哔哩 · 发现每一帧</title>
+  <title>哔哩哔哩 · 你感兴趣的视频都在B站</title>
   <style>
     :root{--bg:#f7f9fb;--ink:#18242e;--muted:#84919a;--line:#e7edf0;--pink:#FB7299;--pink-soft:#fff0f5;font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
     *{box-sizing:border-box}body{margin:0;min-width:320px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #ffb5cb;outline-offset:3px}svg{display:block;width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}img{display:block;max-width:100%}[hidden]{display:none!important}
@@ -465,16 +465,17 @@
       }
     }
 
-    function renderFeedUpdates(fallbackVideo) {
-      const recentVideo = videos.find(video => video.image === records['历史记录'][0]) || fallbackVideo;
+    function renderFeedUpdates() {
+      const demoVideo = videos.find(video => video.image === 117617595516046);
+      if (!demoVideo) return;
       feedGrid.insertAdjacentHTML('beforeend', `
         <section class="feed-updates" aria-label="追更">
           <button type="button" class="resume-video">
-            <img src="${coverFor(recentVideo)}" alt="">
+            <img src="${coverFor(demoVideo)}" alt="">
             <span class="resume-info">
               <span class="resume-label">继续观看</span>
-              <span class="resume-title" title="${escapeHTML(recentVideo.title)}">${escapeHTML(recentVideo.title)}</span>
-              <span class="resume-progress" aria-label="示例观看进度 42%">42%</span>
+              <span class="resume-title" title="${escapeHTML(demoVideo.title)}">${escapeHTML(demoVideo.title)}</span>
+              <span class="resume-progress" aria-label="示例观看进度 23%">23%</span>
             </span>
           </button>
           <section class="creator-updates" aria-label="关注 UP 主更新">
@@ -487,14 +488,14 @@
             </div>
           </section>
         </section>`);
-      feedGrid.querySelector('.resume-video').onclick = () => openVideo(recentVideo);
+      feedGrid.querySelector('.resume-video').onclick = () => openVideo(demoVideo);
       positionFeedUpdates();
     }
 
     new ResizeObserver(positionFeedUpdates).observe(feedGrid);
     function renderFeed(){const items=getFiltered();$('videoGrid').innerHTML=items.length?items.map((v)=>`<article class="card" style="--card-tint:hsl(${Math.round((v.image*137.508+18)%360)} 24% 92%)"><button class="card-media" data-video="${v.image}" aria-label="查看${escapeHTML(v.title)}"><img src="${coverFor(v)}" alt="${escapeHTML(v.category)}视频封面" loading="lazy"><span class="views">${icon('i-play')}${v.views}</span><span class="duration">${v.duration}</span></button><h4 class="card-title">${escapeHTML(v.title)}</h4><div class="card-meta"><span>${escapeHTML(v.author)}</span><span class="separator">·</span><span class="date">${v.date}</span></div></article>`).join(''):`<div class="empty"><strong>${page in records ? '暂无' + page : '暂时没有找到相关视频'}</strong></div>`;
       if (page === '首页' && items.length && !query && homeLayout.value === '2') {
-        if (category === '推荐') renderFeedUpdates(items[0]);
+        if (category === '推荐') renderFeedUpdates();
       } else if (page === '首页' && items.length && !query) {
         const particleCount = 150;
         const confetti = Array.from({length: particleCount}, (_, index) => {
