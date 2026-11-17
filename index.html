@@ -67,7 +67,8 @@
     .sidebar-links{flex:1 1 auto;min-height:0;overflow:auto}
     .sidebar .record-nav{border-top:1px solid var(--line);margin:4px 14px 0;padding:10px 0}
     .sidebar.collapsed .record-nav{margin-inline:9px;padding-inline:0}
-    .main{position:relative;--toolbar-height:80px}
+    .main{position:relative;--toolbar-height:80px;--feed-width:1900px;--feed-gutter:clamp(22px,3.3vw,54px)}
+    .main .content{max-width:var(--feed-width);padding-inline:var(--feed-gutter)}
     .masthead,.secondary-page .masthead{
       position:sticky;top:0;z-index:10;height:var(--toolbar-height);
       overflow:visible;background:#fff;color:var(--ink);
@@ -120,26 +121,20 @@
     }
     @media(prefers-reduced-motion:reduce){.banner-confetti{display:none}}
     .masthead-inner{
-      grid-template:auto / minmax(0,1fr) minmax(0,525px) minmax(max-content,1fr);
+      grid-template:auto / minmax(0,1fr) auto;
       align-items:center;
       align-content:start;
+      max-width:var(--feed-width);
+      margin-inline:auto;
+      padding-inline:var(--feed-gutter);
     }
-    .masthead-inner .search{min-width:0}
-    .masthead-inner .top-actions{align-items:center}
-    .masthead-inner .top-actions{gap:6px}
+    .masthead-inner .search{grid-area:1/1;min-width:0;max-width:525px;justify-self:start}
+    .masthead-inner .top-actions{grid-area:1/2;align-items:center}
     .top-actions .icon-button{display:grid;place-items:center}
     @media(max-width:760px){
       .video-grid{row-gap:28px;margin-top:24px}
       .card-title{font-size:14px;min-height:41px}
       .card-meta{font-size:11px}
-      .masthead-inner{grid-template:auto / minmax(0,1fr) auto;column-gap:8px}
-      .masthead-inner .search{grid-area:1/1;justify-self:end;max-width:525px}
-      .masthead-inner .top-actions{grid-area:1/2}
-    }
-    @media(max-width:760px){
-      .masthead-inner{grid-template:auto / minmax(0,1fr) minmax(0,525px) minmax(max-content,1fr);column-gap:0;padding:20px clamp(20px,3vw,52px) 0}
-      .masthead-inner .search{grid-area:1/2;justify-self:stretch;max-width:none}
-      .masthead-inner .top-actions{grid-area:1/3}
     }
     .masthead-inner .search{height:40px;overflow:hidden}
     .masthead-inner .top-actions{gap:4.8px;margin-left:20px}
@@ -164,7 +159,7 @@
       .masthead-inner .top-actions{grid-area:1/1;margin-left:0}
     }
     @media(max-width:360px){
-      .masthead-inner{padding-inline:8px}
+      .masthead-inner{padding-inline-end:8px}
       .masthead-inner .top-actions{gap:2.4px}
     }
     .feed-updates{
