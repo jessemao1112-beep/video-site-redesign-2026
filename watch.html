@@ -110,7 +110,17 @@
   }
   @media(min-width:1440px){:root{--rail:500px}aside{padding:24px}}
   @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:min(56.25vw,max(0px,calc(100dvh - var(--header) - 218px)))}}
-  .layout-select{font:inherit;font-size:12px;field-sizing:content;height:30px;border:1px solid var(--line);border-radius:7px;background:#fff;color:inherit}
+  .layout-control{position:relative;flex:none}
+  .layout-control::after{
+    content:"";position:absolute;inset-inline-end:10px;top:50%;width:6px;height:6px;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+    transform:translateY(-70%) rotate(45deg);pointer-events:none;
+  }
+  .layout-select{
+    display:block;appearance:none;field-sizing:content;font:inherit;font-size:12px;
+    height:30px;padding-inline:10px 25px;border:1px solid var(--line);border-radius:7px;
+    background:#fff;color:inherit;cursor:pointer;
+  }
   .video-details{display:flex;flex-direction:column}
   .video-summary,.summary-content,.metadata,.interaction-row{display:contents}
   .comments-right .summary-content{display:block}
@@ -176,11 +186,13 @@
   <a href="index.html" aria-label="返回首页"><img class="logo" src="Assets/logo-white.png" alt="bilibili"></a>
   <form action="./" role="search"><input name="q" type="search" aria-label="搜索视频" placeholder="搜索你感兴趣的视频" required></form>
   <div class="top-actions">
-    <select class="layout-select" aria-label="播放页布局" title="播放页布局">
-      <option value="bottom">评论在下</option>
-      <option value="right">评论在右</option>
-      <option value="split">简介评论在右</option>
-    </select>
+    <span class="layout-control">
+      <select class="layout-select" aria-label="播放页布局" title="播放页布局">
+        <option value="bottom">评论在下</option>
+        <option value="right">评论在右</option>
+        <option value="split">简介评论在右</option>
+      </select>
+    </span>
     <a class="icon-button" href="https://member.bilibili.com/platform/upload/video/frame" target="_blank" rel="noopener" aria-label="投稿（在新标签页打开）" title="投稿">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-4 4 4-4 4 4M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
     </a>
