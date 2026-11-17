@@ -1,11 +1,9 @@
 const homeFeed = [
-  {"title": "【伪纪录片】镜 化", "author": "虚构柠檬", "category": "娱乐", "views": "278.0万", "duration": "08:48", "date": "2026-11-15", "image": 117620044991687, "cover": "Assets/popular/BV1Uesp6yEsM.jpg"},
   {"title": "“46块3，问清一条规则。”", "author": "我爱吃派大星", "category": "音乐", "views": "150.8万", "duration": "05:58", "date": "2026-11-15", "image": 117616639220696, "cover": "Assets/popular/BV1VBs76qE16.jpg"},
   {"title": "命运让他们彼此对立，也让他们彼此靠近｜上", "author": "Foyege弗曳哥", "category": "知识", "views": "181.2万", "duration": "10:30", "date": "2026-11-15", "image": 117619910842271, "cover": "Assets/popular/BV1jHsp69Ekg.jpg"},
   {"title": "“成华大道没有「烂奇迹」”", "author": "Dieorite", "category": "鬼畜", "views": "23.0万", "duration": "03:28", "date": "2026-11-15", "image": 117617998174859, "cover": "Assets/popular/BV1BDsE67Eom.jpg"},
   {"title": "术式反转久留美 【泛式】", "author": "泛式", "category": "娱乐", "views": "103.9万", "duration": "07:55", "date": "2026-11-15", "image": 117620195986628, "cover": "Assets/popular/BV1Pwsp6qEbo.jpg"},
   {"title": "《美队全家福VS灭霸全家福》灭霸的爸爸叫灭建国！", "author": "音乐老友", "category": "音乐", "views": "390.5万", "duration": "03:07", "date": "2026-11-14", "image": 117615229994204, "cover": "Assets/popular/BV1bzsV6nEM6.jpg"},
-  {"title": "《立贤不立长》", "author": "伤心欲茄222", "category": "生活", "views": "205.3万", "duration": "01:40", "date": "2026-11-15", "image": 117613736756059, "cover": "Assets/popular/BV1XMsG6QEip.jpg"},
   {"title": "《复联暴雨末日》合集【AI全民制作人】", "author": "看到这个名字的人暴富", "category": "娱乐", "views": "88.7万", "duration": "14:24", "date": "2026-11-14", "image": 117612092594974, "cover": "Assets/popular/BV1bwWr6xEL6.jpg"},
   {"title": "美国现场见证BLG一穿四！我已经坐好了…", "author": "一只树奈奈啊", "category": "生活", "views": "12.2万", "duration": "12:36", "date": "2026-11-16", "image": 117623668933138, "cover": "Assets/popular/BV1ZjsF6ZEju.jpg"},
   {"title": "美国野心滔天？把战火烧到鸭绿江？！那么 你将面对中朝军民合力反击！", "author": "MoNet_Team", "category": "科技", "views": "107.8万", "duration": "02:02", "date": "2026-11-14", "image": 117612847629985, "cover": "Assets/popular/BV1SAWC6YEFg.jpg"},
