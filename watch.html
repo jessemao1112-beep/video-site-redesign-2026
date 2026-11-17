@@ -46,6 +46,7 @@
   h2 small{margin-left:8px;font-size:13px;color:var(--muted);font-weight:400}
   .comment{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
   .bubble{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffe8f1;color:#a52456;font-weight:700}
+  img.bubble{object-fit:cover}
   .comment p{margin:3px 0}
   small,.meta{color:var(--muted)}
   aside{min-width:0;border-left:1px solid var(--line);padding:22px 18px}
@@ -58,14 +59,41 @@
   .meta{font-size:12px;margin:10px 0 16px}
   .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:10px}
   .actions button{display:grid;justify-items:center;gap:5px;background:none;border:0;color:inherit}
-  .actions span{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#f3f4f6;font-size:20px}
-  .actions button[aria-pressed=true] span{background:#ffe1ed;color:#a52456}
+  .actions span{display:grid;place-items:center;width:40px;height:40px;}
+  .actions img{width:28.8px;height:28.8px}
+  .actions button[aria-pressed=true]{color:#a52456}
+  .actions button[aria-pressed=true] img{filter:brightness(0) saturate(100%) invert(25%) sepia(37%) saturate(3135%) hue-rotate(302deg)}
   .feedback{min-height:20px;font-size:12px;color:var(--muted)}
   .recommendations{border-top:1px solid var(--line);margin-top:10px;padding-top:14px}
-  .related{display:grid;grid-template-columns:46% minmax(0,1fr);gap:10px;margin-top:12px}
-  .related img{width:100%;aspect-ratio:16/9;border-radius:8px;object-fit:cover;background:#eef0f2}
-  .related strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:13px;line-height:1.35}
-  .related small{display:block;margin-top:4px;font-size:11px}
+  .related-classic{display:grid;grid-template-columns:46% minmax(0,1fr);gap:10px;margin-top:12px}
+  .related-classic img{width:100%;aspect-ratio:16/9;border-radius:8px;object-fit:cover;background:#eef0f2}
+  .related-classic strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:13px;line-height:1.35}
+  .related-classic small{display:block;margin-top:4px;font-size:11px}
+  .related{display:block;min-width:0;margin-top:12px;position:relative;isolation:isolate}
+  .related::before{
+    content:"";position:absolute;z-index:-1;inset:-9px;border-radius:19px;
+    background:var(--card-tint);opacity:0;transform:scale(.985);
+    transition:opacity .2s ease,transform .2s ease;pointer-events:none;
+  }
+  .related:is(:hover,:focus-visible){z-index:1;color:inherit}
+  .related:is(:hover,:focus-visible)::before{opacity:1;transform:scale(1)}
+  .related:is(:hover,:focus-visible) .card-title{color:#FB6699}
+  .related .card-media:hover img,.related:focus-visible .card-media img{transform:scale(1.055)}
+  @media(max-width:760px){.related::before{inset:-6px;border-radius:17px}}
+  @media(prefers-reduced-motion:reduce){
+    .related::before,.related .card-media img{transition:none}
+  }
+  .related .card-media{position:relative;overflow:hidden;display:block;aspect-ratio:16/9;border-radius:12px;background:#e1e8e9}
+  .related .card-meta{flex-wrap:wrap}
+  .related .card-media img{display:block}
+  .related .card-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+  .related .card-media::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.55))}
+  .related .duration{position:absolute;right:9px;bottom:9px;z-index:1;color:#fff;background:#101a2288;border-radius:4px;padding:3px 5px;font-size:11px;font-variant-numeric:tabular-nums}
+  .related .views{position:absolute;left:10px;bottom:11px;z-index:1;display:flex;align-items:center;gap:5px;color:#fff;font-size:11px}
+  .related .views svg{width:14px;height:14px;fill:#fff;stroke:none}
+  .related .card-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin:12px 1px 11px;font-size:14px;font-weight:650;line-height:1.48;min-height:41px}
+  .related .card-meta{display:flex;align-items:center;gap:7px;margin:0 1px;font-size:11px;color:#9ba8ae}
+  .related .card-meta .separator{margin:0 1px;color:#c4cdd0}
   a:hover{color:#a52456}
   @media(min-width:680px){
     .stage.floating{max-width:calc(100vw - var(--rail) - 40px)}
@@ -174,17 +202,17 @@
     </div>
     <div class="interaction-row">
     <div class="author">
-      <span class="bubble" aria-hidden="true">阿</span>
+      <img class="bubble" src="Assets/comment-avatars/01.webp" alt="" width="52" height="52">
       <div><strong>阿皮apiOVO</strong><br>
         <a class="button" href="https://space.bilibili.com/64570778/">充电</a>
         <button type="button" class="button follow" data-toggle aria-pressed="false">关注</button>
       </div>
     </div>
     <div class="actions">
-      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">♡</span>点赞</button>
-      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">◎</span>投币</button>
-      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true">☆</span>收藏</button>
-      <button type="button" id="share"><span aria-hidden="true">↗</span>分享</button>
+      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true"><img src="Assets/action-like.png" width="24" height="24" alt=""></span>点赞</button>
+      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true"><img src="Assets/action-coin.png" width="24" height="24" alt=""></span>投币</button>
+      <button type="button" data-toggle aria-pressed="false"><span aria-hidden="true"><img src="Assets/action-favorite.png" width="24" height="24" alt=""></span>收藏</button>
+      <button type="button" id="share"><span aria-hidden="true"><img src="Assets/action-share.png" width="24" height="24" alt=""></span>分享</button>
     </div>
     </div>
     <p class="feedback" role="status"></p>
@@ -193,6 +221,23 @@
     <section class="recommendations" aria-labelledby="rec-title">
       <h2 id="rec-title">推荐视频</h2>
       <div id="related-list"></div>
+      <template id="related-card-classic">
+        <a class="related-classic">
+          <img alt="" loading="lazy">
+          <span><strong></strong><small><span class="card-author"></span><br><span class="views"></span></small></span>
+        </a>
+      </template>
+      <template id="related-card">
+        <a class="related">
+          <span class="card-media">
+            <img alt="" loading="lazy">
+            <span class="views"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><span></span></span>
+            <span class="duration"></span>
+          </span>
+          <h3 class="card-title"></h3>
+          <div class="card-meta"><span class="card-author"></span><span class="separator" aria-hidden="true">·</span><span class="date"></span></div>
+        </a>
+      </template>
     </section>
     </div>
   </aside>
@@ -344,7 +389,6 @@
 
   if (selectedVideo) {
     document.querySelector('.author strong').textContent = selectedVideo.author;
-    document.querySelector('.author .bubble').textContent = Array.from(selectedVideo.author)[0];
     document.querySelector('.author a.button').href = 'https://www.bilibili.com/video/' + requestedId + '/';
     document.querySelector('h1').textContent = selectedVideo.title;
     document.title = selectedVideo.title;
@@ -362,23 +406,35 @@
     .filter(({bvid}) => bvid && bvid !== activeVideoId)
     .slice(0, 20);
 
-  for (const {video, bvid} of recommendations) {
-    const link = document.createElement('a');
-    link.className = 'related';
-    link.href = 'watch.html?v=' + bvid;
-    const cover = document.createElement('img');
-    cover.src = video.cover;
-    cover.alt = '';
-    cover.loading = 'lazy';
-    const info = document.createElement('span');
-    const title = document.createElement('strong');
-    title.textContent = video.title;
-    const meta = document.createElement('small');
-    meta.append(video.author, document.createElement('br'), video.views + '播放');
-    info.append(title, meta);
-    link.append(cover, info);
-    relatedList.append(link);
+  const relatedCard = document.querySelector('#related-card').content.firstElementChild;
+  const classicCard = document.querySelector('#related-card-classic').content.firstElementChild;
+
+  function renderRecommendations() {
+    const classicLayout = layoutSelect.value === 'bottom';
+    const template = classicLayout ? classicCard : relatedCard;
+    const cards = recommendations.map(({video, bvid}) => {
+      const link = template.cloneNode(true);
+      link.href = 'watch.html?v=' + bvid;
+      link.querySelector('img').src = video.cover;
+      link.querySelector('.card-author').textContent = video.author;
+      if (classicLayout) {
+        link.querySelector('strong').textContent = video.title;
+        link.querySelector('.views').textContent = video.views + '播放';
+      } else {
+        const tintHue = Math.round((video.image * 137.508 + 18) % 360);
+        link.style.setProperty('--card-tint', 'hsl(' + tintHue + ' 24% 92%)');
+        link.querySelector('.views span').textContent = video.views;
+        link.querySelector('.duration').textContent = video.duration;
+        link.querySelector('.card-title').textContent = video.title;
+        link.querySelector('.date').textContent = video.date;
+      }
+      return link;
+    });
+    relatedList.replaceChildren(...cards);
   }
+
+  renderRecommendations();
+  layoutSelect.addEventListener('change', renderRecommendations);
 
   const commentSection = document.querySelector('.comments');
   const sampleComments = Array.from(commentSection.querySelectorAll('.comment'));
@@ -388,6 +444,16 @@
     for (const comment of sampleComments) commentCopies.append(comment.cloneNode(true));
   }
   commentSection.append(commentCopies);
+  const commentAvatarCount = 18;
+  commentSection.querySelectorAll('.comment .bubble').forEach((placeholder, index) => {
+    const avatarNumber = String(2 + index % commentAvatarCount).padStart(2, '0');
+    const avatar = new Image(34, 34);
+    avatar.className = 'bubble';
+    avatar.alt = '';
+    avatar.loading = 'lazy';
+    avatar.src = `Assets/comment-avatars/${avatarNumber}.webp`;
+    placeholder.replaceWith(avatar);
+  });
   document.querySelector('#comments-title small').textContent =
     `${sampleComments.length * (extraCopies + 1)} · 示例评论`;
 
