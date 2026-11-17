@@ -23,7 +23,7 @@
   main{display:grid;grid-template-columns:minmax(0,1fr) var(--rail);align-items:start}
   .watch-main{min-width:0}
   .player-shell{
-    --player-height:max(0px,calc(100dvh - var(--header) - 218px));
+    --player-height:max(0px,calc(100dvh - var(--header) - var(--comments-preview-height,218px)));
     height:var(--player-height);
   }
   .stage{height:100%;display:grid;place-items:center;container-type:size;background:#000}
@@ -41,6 +41,8 @@
   .drag-handle:active{cursor:grabbing}
   iframe{display:block;width:min(100cqw,calc(100cqh * 16 / 9));height:auto;aspect-ratio:16/9;border:0;background:#000}
   .comments{min-height:218px;padding:20px clamp(16px,3vw,48px) 32px}
+  body:not(.comments-right,.recommendations-left) .watch-main{--comments-preview-height:120px}
+  body:not(.comments-right,.recommendations-left) .watch-main > .comments{min-height:var(--comments-preview-height)}
   h1,h2,p{margin:0}
   h2{font-size:18px}
   h2 small{margin-left:8px;font-size:13px;color:var(--muted);font-weight:400}
@@ -110,7 +112,7 @@
     .watch-main,main > aside{height:100%;min-height:0;overflow-y:auto;overscroll-behavior-y:contain}
   }
   @media(min-width:1440px){:root{--rail:500px}aside{padding:24px}}
-  @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:min(56.25vw,max(0px,calc(100dvh - var(--header) - 218px)))}}
+  @media(max-width:679px){main{grid-template-columns:minmax(0,1fr)} aside{border-left:0;border-top:1px solid var(--line)} header{grid-template-columns:auto minmax(0,1fr) auto;gap:10px}.logo{width:66px}.player-shell{--player-height:min(56.25vw,max(0px,calc(100dvh - var(--header) - var(--comments-preview-height,218px))))}}
   .layout-control{position:relative;flex:none}
   .layout-control::after{
     content:"";position:absolute;inset-inline-end:10px;top:50%;width:6px;height:6px;
@@ -126,7 +128,7 @@
   .video-summary,.summary-content,.metadata,.interaction-row{display:contents}
   .comments-right .summary-content{display:block}
   .video-details .author{order:-1}
-  .comments-right .interaction-row .author{order:0}
+  body:not(.recommendations-left) .interaction-row .author{order:0}
   .comments-right{--watch-width:calc(100vw - var(--rail) - 16px)}
   .comments-right .player-shell{--player-height:min(calc(var(--watch-width) * .5625),max(0px,calc(100dvh - var(--header) - 140px)))}
   .comments-right .video-details{container-type:inline-size;padding:0 clamp(12px,2vw,24px) 24px}
